@@ -1,1 +1,1 @@
-# IDS_25_26
+# HackHub: Progetto esame di IDS A.A. 2025/26
