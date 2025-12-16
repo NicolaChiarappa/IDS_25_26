@@ -1,23 +1,24 @@
 package it.unicam.coloni.hackhub.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
+
 import java.util.List;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event extends BaseEntity {
 
     @Column
     private String name;
 
 
-    @OneToMany(targetEntity= Assignment.class, mappedBy = "event")
+    @OneToMany(targetEntity= Assignment.class, mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Getter(AccessLevel.PRIVATE)
+    @ToString.Exclude
     private List<Assignment> assignments;
 
     @Embedded
@@ -36,9 +37,9 @@ public class Event extends BaseEntity {
         return getStaff().addMentor(mentor);
     }
 
-//    public Assignment addJudge(User judge){
-//        return getStaff().addJudge(User judge);
-//    }
+    public Assignment addJudge(User judge){
+        return getStaff().addJudge(judge);
+    }
 
     public boolean isDeletable(){
         return this.status==EventStatus.CLOSED;

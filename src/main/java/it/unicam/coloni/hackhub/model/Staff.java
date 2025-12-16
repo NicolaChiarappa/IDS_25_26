@@ -1,10 +1,7 @@
 package it.unicam.coloni.hackhub.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
 import java.util.*;
 
 @Data
@@ -24,6 +21,12 @@ public class Staff {
     private List<Assignment> assignments;
     private Event event;
 
+
+    /**
+     * Modifies the assignment list and returns the new assignment added to the list
+     * @param mentor the user to add as mentor
+     * @return the new assignment
+     */
     public Assignment addMentor(User mentor){
         checkRole(mentor, UserRole.MENTOR);
         checkQuantity(UserRole.MENTOR);
@@ -34,6 +37,11 @@ public class Staff {
     }
 
 
+    /**
+     * Modifies the assignment list and returns the new assignment added to the list
+     * @param judge the user to add as judge
+     * @return the new assignment
+     */
     public Assignment addJudge(User judge){
         checkRole(judge, UserRole.JUDGE);
         checkQuantity(UserRole.JUDGE);
@@ -43,13 +51,19 @@ public class Staff {
         return assignment;
     }
 
+    /**
+     * Assign a mentor to a specified {@link Team}
+     * @param mentor the mentor to assign to the team
+     * @param team the team linked to the mentor
+     * @return the new assignment
+     */
     public Assignment updateMentor(User mentor, Team team){
         if(this.contains(mentor)){
             Assignment assignment = new Assignment(mentor, event, team);
             this.assignments.add(assignment);
             return assignment;
         }else {
-            throw new IllegalArgumentException("This mentor is not assigned to this event");
+            throw new IllegalArgumentException("The mentor with id:" + mentor.getId() +"is not assigned to this event");
         }
     }
 
@@ -71,7 +85,7 @@ public class Staff {
 
     private void checkRole(User user, UserRole role){
         if(user.getRole()!=role){
-            throw new IllegalArgumentException("The user has not the correct role on the platform, expected:" + role + "actual:" + user.getRole());
+            throw new IllegalArgumentException("The user has not the correct role on the platform, expected: " + role + " actual: " + user.getRole());
         }
     }
 

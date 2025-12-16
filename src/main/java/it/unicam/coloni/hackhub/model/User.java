@@ -3,6 +3,9 @@ package it.unicam.coloni.hackhub.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.List;
 
 
 @Entity
@@ -35,6 +38,8 @@ public class User extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToOne(mappedBy = "user")
-    Assignment assignment;
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user")
+    private List<Assignment> assignment;
+
 }
