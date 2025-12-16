@@ -32,5 +32,23 @@ public class Event extends BaseEntity {
     }
 
 
+    public Assignment addMentor(User mentor){
+        return getStaff().addMentor(mentor);
+    }
+
+//    public Assignment addJudge(User judge){
+//        return getStaff().addJudge(User judge);
+//    }
+
+    public boolean isDeletable(){
+        return this.status==EventStatus.CLOSED;
+    }
+
+    public boolean closeEvent(){
+        //TODO:
+        return false;
+    }
+
+
 
 }

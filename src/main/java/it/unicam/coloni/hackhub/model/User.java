@@ -1,6 +1,7 @@
 package it.unicam.coloni.hackhub.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
         }
 )
 @EqualsAndHashCode(callSuper = true)
+@Data
 public class User extends BaseEntity{
 
     @Column
@@ -32,4 +34,7 @@ public class User extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToOne(mappedBy = "user")
+    Assignment assignment;
 }
