@@ -1,25 +1,27 @@
 package it.unicam.coloni.hackhub.model;
 
 
-import lombok.Data;
 import java.util.*;
 
-@Data
+
 public class Staff {
 
-    private static Map<UserRole, Integer> maxQuantity = Map.of(
+    private final static Map<UserRole, Integer> maxQuantity = Map.of(
             UserRole.JUDGE,1,
             UserRole.MENTOR, 100,
             UserRole.ORGANIZER, 1
     );
 
-    public Staff(List<Assignment> assignments) {
+    protected Staff(List<Assignment> assignments) {
+        if(assignments==null || assignments.isEmpty()){
+            throw new IllegalArgumentException("The list must contain at least an organizer");
+        }
         this.assignments = assignments;
         this.event = assignments.getFirst().getEvent();
     }
 
-    private List<Assignment> assignments;
-    private Event event;
+    private final List<Assignment> assignments;
+    private final Event event;
 
 
     /**
