@@ -41,6 +41,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 
+*.vpp.*
 
-*.vpp.lck
-*.vpp.bak*
