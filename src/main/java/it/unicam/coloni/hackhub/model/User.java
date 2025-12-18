@@ -1,9 +1,8 @@
 package it.unicam.coloni.hackhub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -18,9 +17,12 @@ import java.util.List;
 )
 @EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class User extends BaseEntity{
 
     @Column
+    @NonNull
     private String firstName;
 
     @Column
@@ -36,10 +38,12 @@ public class User extends BaseEntity{
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @NonNull
     private UserRole role;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Assignment> assignment;
 
 }

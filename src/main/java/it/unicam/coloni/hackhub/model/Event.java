@@ -1,5 +1,6 @@
 package it.unicam.coloni.hackhub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,9 +17,9 @@ public class Event extends BaseEntity {
     private String name;
 
     @OneToMany(targetEntity= Assignment.class, mappedBy = "event", cascade = CascadeType.ALL)
-    @Getter(AccessLevel.PRIVATE)
     @ToString.Exclude
-    private List<Assignment> assignments;
+    @JsonIgnore
+    private List<Assignment> staff;
 
     @Embedded
     private DateRange runningPeriod;
@@ -36,28 +37,28 @@ public class Event extends BaseEntity {
         }
         Event event = new Event();
         List<Assignment> assignmentList = new ArrayList<>();
-        event.assignments = assignmentList;
+        event.staff = assignmentList;
         Assignment organizerAssignment = new Assignment(organizer, event, null);
         assignmentList.add(organizerAssignment);
         return event;
     }
 
 
-    public Staff getStaff(){
-        return new Staff(getAssignments());
+    private Staff getEventStaff(){
+        return new Staff(getStaff());
     }
 
 
     public Assignment addMentor(User mentor){
-        return getStaff().addMentor(mentor);
+        return getEventStaff().addMentor(mentor);
     }
 
     public Assignment addJudge(User judge){
-        return getStaff().addJudge(judge);
+        return getEventStaff().addJudge(judge);
     }
 
     public Assignment updateMentor(User mentor, Team team){
-        return getStaff().updateMentor(mentor, team);
+        return getEventStaff().updateMentor(mentor, team);
     }
 
     public boolean isDeletable(){

@@ -1,6 +1,7 @@
 package it.unicam.coloni.hackhub.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Assignment extends BaseEntity{
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Event event;
 
     @OneToOne(fetch = FetchType.LAZY)
