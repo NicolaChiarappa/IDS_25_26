@@ -37,7 +37,7 @@ public abstract class EventMapper {
 
 
 
-    @Mapping(target = "modifiedAt", qualifiedByName = "getCurrentTime")
+    @Mapping(target = "modifiedAt", source = ".", qualifiedByName = "getCurrentTime")
     @Mapping(target = "staff", ignore = true)
     @Mapping(target = "runningPeriod", ignore = true)
     @Mapping(target = "id", source = "id")
@@ -84,7 +84,7 @@ public abstract class EventMapper {
 
 
     @Named("getCurrentTime")
-    protected LocalDateTime getCurrentTime() {
+    protected LocalDateTime getCurrentTime(UpdateEventRequest dto) {
         return LocalDateTime.now();
     }
 
