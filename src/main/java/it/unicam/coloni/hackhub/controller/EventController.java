@@ -2,6 +2,7 @@ package it.unicam.coloni.hackhub.controller;
 
 import it.unicam.coloni.hackhub.dto.CreateEventRequest;
 import it.unicam.coloni.hackhub.dto.EventDto;
+import it.unicam.coloni.hackhub.dto.UpdateEventRequest;
 import it.unicam.coloni.hackhub.services.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,5 +18,17 @@ public class EventController {
     public EventDto createEvent(@RequestBody CreateEventRequest request){
         return eventService.createEvent(request);
     }
+
+    @DeleteMapping
+    public EventDto deleteEvent(@RequestParam Long id){
+        return eventService.deleteEvent(id);
+    }
+
+
+    @PatchMapping
+    public EventDto updateEvent(@RequestBody UpdateEventRequest request){
+        return eventService.updateEvent(request);
+    }
+
 
 }

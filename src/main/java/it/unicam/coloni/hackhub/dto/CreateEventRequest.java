@@ -1,16 +1,10 @@
 package it.unicam.coloni.hackhub.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.time.LocalDate;
-
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class CreateEventRequest {
-    private String name;
+public class CreateEventRequest extends EventRequest {
 
-    private LocalDate startDate;
-
-    private LocalDate endDate;
-
-    private String rulesUrl;
 }

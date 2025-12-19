@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event extends BaseEntity {
+
+
+    public static Event fromOrganizer(User organizer){
+        if(organizer.getRole()!=UserRole.ORGANIZER){
+            throw new IllegalArgumentException("The provided user is not an organizer");
+        }
+        Event event = new Event();
+        List<Assignment> assignmentList = new ArrayList<>();
+        event.staff = assignmentList;
+        Assignment organizerAssignment = new Assignment(organizer, event, null);
+        assignmentList.add(organizerAssignment);
+        return event;
+    }
+
+
+
     @Column
     private String name;
 
@@ -31,17 +48,7 @@ public class Event extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private EventStatus status;
 
-    public static Event fromOrganizer(User organizer){
-        if(organizer.getRole()!=UserRole.ORGANIZER){
-            throw new IllegalArgumentException("The provided user is not an organizer");
-        }
-        Event event = new Event();
-        List<Assignment> assignmentList = new ArrayList<>();
-        event.staff = assignmentList;
-        Assignment organizerAssignment = new Assignment(organizer, event, null);
-        assignmentList.add(organizerAssignment);
-        return event;
-    }
+
 
 
     private Staff getEventStaff(){
@@ -61,15 +68,22 @@ public class Event extends BaseEntity {
         return getEventStaff().updateMentor(mentor, team);
     }
 
-    public boolean isDeletable(){
-        return this.status==EventStatus.CLOSED;
+    public void delete(){
+        this.checkIfDeletable();
+        this.setDeletedAt(LocalDateTime.now());
     }
 
-    public boolean closeEvent(){
-        //TODO:
-        return false;
+    public void setStatus(EventStatus status){
+        if(status==EventStatus.CLOSED && this.status!=EventStatus.EVALUATED){
+            throw new IllegalStateException("Unable to set given status, current status is: " + this.getStatus());
+        }
+        this.status=status;
     }
 
-
+    private void checkIfDeletable(){
+        if(this.getStatus()!=EventStatus.CLOSED){
+            throw new IllegalStateException("Unable to delete this event, its current status is: " + this.getStatus());
+        }
+    }
 
 }

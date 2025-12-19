@@ -1,38 +1,51 @@
 package it.unicam.coloni.hackhub.mappers;
 
+import it.unicam.coloni.hackhub.dto.UpdateEventRequest;
 import it.unicam.coloni.hackhub.model.*;
 import it.unicam.coloni.hackhub.dto.CreateEventRequest;
 import it.unicam.coloni.hackhub.dto.EventDto;
 import org.mapstruct.*;
+import java.time.LocalDateTime;
 
 
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        uses = DateRange.class)
+        uses = {DateRange.class, EventMapper.class})
 public abstract class EventMapper {
 
 
 
+    @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "staff", ignore = true)
     @Mapping(target = "runningPeriod", ignore = true)
     @Mapping(target = "id", ignore = true)
-    public abstract Event from(CreateEventRequest request);
+    public abstract Event toDto(CreateEventRequest request, @MappingTarget Event event);
 
-
-    @AfterMapping
-    void setDateRange(@MappingTarget Event event, CreateEventRequest request) {
-        DateRange dateRange = DateRange.fromDates(request.getStartDate(), request.getEndDate());
-        event.setRunningPeriod(dateRange);
-    }
 
 
     @Mapping(target = "organizerId", ignore = true)
     @Mapping(target = "mentorsIds", ignore = true)
     @Mapping(target = "judgeId", ignore = true)
     @Mapping(target = "eventId", source = "id")
-    public abstract EventDto from(Event event);
+    public abstract EventDto toDto(Event event);
+
+
+
+
+
+    @Mapping(target = "modifiedAt", qualifiedByName = "getCurrentTime")
+    @Mapping(target = "staff", ignore = true)
+    @Mapping(target = "runningPeriod", ignore = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    public abstract void fromUpdate(@MappingTarget Event event, UpdateEventRequest dto);
+
+
 
     @AfterMapping
     void takeRoles(@MappingTarget EventDto eventDto, Event event) {
@@ -60,5 +73,20 @@ public abstract class EventMapper {
                         .toList()
         );
     }
+
+    @AfterMapping
+    void setDateRange(@MappingTarget Event event, CreateEventRequest request) {
+        DateRange dateRange = DateRange.fromDates(request.getStartDate(), request.getEndDate());
+        event.setRunningPeriod(dateRange);
+        event.setCreatedAt(LocalDateTime.now());
+        event.setStatus(EventStatus.SUBSCRIPTION);
+    }
+
+
+    @Named("getCurrentTime")
+    protected LocalDateTime getCurrentTime() {
+        return LocalDateTime.now();
+    }
+
 
 }

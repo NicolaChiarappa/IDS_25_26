@@ -2,8 +2,8 @@ package it.unicam.coloni.hackhub.services;
 
 import it.unicam.coloni.hackhub.dto.CreateEventRequest;
 import it.unicam.coloni.hackhub.dto.EventDto;
+import it.unicam.coloni.hackhub.dto.UpdateEventRequest;
 import it.unicam.coloni.hackhub.mappers.EventMapper;
-import it.unicam.coloni.hackhub.model.Assignment;
 import it.unicam.coloni.hackhub.model.Event;
 import it.unicam.coloni.hackhub.model.User;
 import it.unicam.coloni.hackhub.model.UserRole;
@@ -31,43 +31,32 @@ public class EventServiceImpl implements EventService{
     AssignmentRepository assignmentRepository;
 
 
-
     @Override
     @Transactional
     public EventDto createEvent(CreateEventRequest request) {
-        //TODO:
         User user = userRepository.save(new User("Organizer", UserRole.ORGANIZER ));
         Event event = Event.fromOrganizer(user);
-
-
-        Event newEvent = eventRepository.save(event);
-
-        return eventMapper.from(newEvent);
+        Event settedUpEvent = eventMapper.toDto(request, event);
+        Event savedEvent = eventRepository.save(settedUpEvent);
+        return eventMapper.toDto(savedEvent);
     }
 
-    //TODO:
-//    @Override
-//    public EventDto deleteEvent(DeleteEventRequest request) {
-//        return null;
-//    }
-//
-//    @Override
-//    public EventDto updateEvent(UpdateEventRequest request) {
-//        return null;
-//    }
-//
-//    @Override
-//    public TeamDto publishWinner(WinnerRequest request) {
-//        return null;
-//    }
 
-
-    public EventDto getEventInfos(Long id){
-        return eventMapper.from(eventRepository.getReferenceById(id));
+    @Override
+    public EventDto deleteEvent(Long id) {
+        Event fetchedEvent = eventRepository.findById(id).orElseThrow(NullPointerException::new);
+        fetchedEvent.delete();
+        return eventMapper.toDto(eventRepository.save(fetchedEvent));
     }
 
-    @Transactional
-    public Assignment getAssignment(Long id){
-        return assignmentRepository.getReferenceById(id);
+
+
+    public EventDto updateEvent(UpdateEventRequest request) {
+        Long id = request.getId();
+        Event event = eventRepository.findById(id).orElseThrow();
+        eventMapper.fromUpdate(event, request);
+        Event savedEvent = eventRepository.save(event);
+        return eventMapper.toDto(savedEvent);
     }
+
 }

@@ -9,8 +9,8 @@ public interface EventService {
 
     EventDto createEvent(CreateEventRequest request);
 
-    //TODO:
-//    public EventDto deleteEvent(DeleteEventRequest request);
+
+    EventDto deleteEvent(Long id);
 //
 //    public EventDto updateEvent(UpdateEventRequest request);
 //
