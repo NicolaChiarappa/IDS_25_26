@@ -1,9 +1,9 @@
 package it.unicam.coloni.hackhub.controller;
 
-import it.unicam.coloni.hackhub.dto.CreateEventRequest;
+import it.unicam.coloni.hackhub.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.dto.EventDto;
-import it.unicam.coloni.hackhub.dto.UpdateEventRequest;
-import it.unicam.coloni.hackhub.services.EventServiceImpl;
+import it.unicam.coloni.hackhub.dto.requests.UpdateEventRequest;
+import it.unicam.coloni.hackhub.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class EventController {
 
     @Autowired
-    EventServiceImpl eventService;
+    EventService eventService;
 
     @PostMapping
     public EventDto createEvent(@RequestBody CreateEventRequest request){

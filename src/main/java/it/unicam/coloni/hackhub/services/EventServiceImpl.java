@@ -1,8 +1,8 @@
 package it.unicam.coloni.hackhub.services;
 
-import it.unicam.coloni.hackhub.dto.CreateEventRequest;
+import it.unicam.coloni.hackhub.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.dto.EventDto;
-import it.unicam.coloni.hackhub.dto.UpdateEventRequest;
+import it.unicam.coloni.hackhub.dto.requests.UpdateEventRequest;
 import it.unicam.coloni.hackhub.mappers.EventMapper;
 import it.unicam.coloni.hackhub.model.Event;
 import it.unicam.coloni.hackhub.model.User;

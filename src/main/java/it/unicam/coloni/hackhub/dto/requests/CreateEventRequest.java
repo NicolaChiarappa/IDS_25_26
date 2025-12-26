@@ -1,4 +1,4 @@
-package it.unicam.coloni.hackhub.dto;
+package it.unicam.coloni.hackhub.dto.requests;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

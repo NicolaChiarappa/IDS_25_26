@@ -1,4 +1,4 @@
-package it.unicam.coloni.hackhub.dto;
+package it.unicam.coloni.hackhub.dto.requests;
 
 import it.unicam.coloni.hackhub.model.EventStatus;
 import lombok.Data;

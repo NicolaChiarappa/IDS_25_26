@@ -1,8 +1,8 @@
 package it.unicam.coloni.hackhub.mappers;
 
-import it.unicam.coloni.hackhub.dto.UpdateEventRequest;
+import it.unicam.coloni.hackhub.dto.requests.UpdateEventRequest;
 import it.unicam.coloni.hackhub.model.*;
-import it.unicam.coloni.hackhub.dto.CreateEventRequest;
+import it.unicam.coloni.hackhub.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.dto.EventDto;
 import org.mapstruct.*;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public abstract class EventMapper {
 
     @Mapping(target = "modifiedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "staff", ignore = true)
     @Mapping(target = "runningPeriod", ignore = true)
@@ -46,7 +46,11 @@ public abstract class EventMapper {
     public abstract void fromUpdate(@MappingTarget Event event, UpdateEventRequest dto);
 
 
-
+    /**
+     * Maps the users' ids from {@link Event} to {@link EventDto} based on their roles
+     * @param eventDto the mapping target
+     * @param event the mapping source
+     */
     @AfterMapping
     void takeRoles(@MappingTarget EventDto eventDto, Event event) {
         eventDto.setOrganizerId(
@@ -74,6 +78,12 @@ public abstract class EventMapper {
         );
     }
 
+
+    /**
+     * Sets the {@link Event}'s runningPeriod property from {@link CreateEventRequest}'s startDate and endDate
+     * @param event the mapping target
+     * @param request the mapping source
+     */
     @AfterMapping
     void setDateRange(@MappingTarget Event event, CreateEventRequest request) {
         DateRange dateRange = DateRange.fromDates(request.getStartDate(), request.getEndDate());

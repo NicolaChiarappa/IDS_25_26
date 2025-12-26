@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,6 +45,22 @@ public class User extends BaseEntity{
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<Assignment> assignment;
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private List<Assignment> assignments = new ArrayList<>();
+
+    public List<Assignment> getAssignments(){
+        return List.copyOf(this.assignments);
+    }
+
+
+    public boolean isAvailable(DateRange dateRange){
+
+        if(!assignments.isEmpty()){
+            return assignments.stream().anyMatch(assignment -> !assignment.getEvent().getRunningPeriod().overlap(dateRange));
+        }
+        return true;
+    }
+
 
 }

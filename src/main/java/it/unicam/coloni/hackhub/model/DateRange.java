@@ -23,10 +23,9 @@ public class DateRange {
    private LocalDate startDate;
    private LocalDate endDate;
 
-
+//TODO:
    public boolean overlap(DateRange range){
-      //TODO:
-      return false;
+      return true;
    }
 
 }
