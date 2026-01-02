@@ -23,7 +23,7 @@ public abstract class EventMapper {
     @Mapping(target = "staff", ignore = true)
     @Mapping(target = "runningPeriod", ignore = true)
     @Mapping(target = "id", ignore = true)
-    public abstract Event toDto(CreateEventRequest request, @MappingTarget Event event);
+    public abstract Event toEvent(CreateEventRequest request, @MappingTarget Event event);
 
 
 

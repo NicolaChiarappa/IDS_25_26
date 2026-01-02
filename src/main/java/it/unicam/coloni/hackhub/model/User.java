@@ -49,7 +49,8 @@ public class User extends BaseEntity{
     @Setter(AccessLevel.NONE)
     private List<Assignment> assignments = new ArrayList<>();
 
-    public List<Assignment> getAssignments(){
+    public List<Assignment> getAssignments()
+    {
         return List.copyOf(this.assignments);
     }
 
@@ -57,7 +58,8 @@ public class User extends BaseEntity{
     public boolean isAvailable(DateRange dateRange){
 
         if(!assignments.isEmpty()){
-            return assignments.stream().anyMatch(assignment -> !assignment.getEvent().getRunningPeriod().overlap(dateRange));
+            return assignments.stream()
+                    .anyMatch(assignment -> !assignment.getEvent().getRunningPeriod().overlap(dateRange));
         }
         return true;
     }

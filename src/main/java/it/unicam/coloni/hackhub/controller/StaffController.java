@@ -15,12 +15,12 @@ public class StaffController {
     @Autowired
     StaffService staffService;
 
-    @PostMapping()
+    @PostMapping("/judge")
     public AssignmentDto addJudge(@RequestBody AddJudgeRequest request){
         return staffService.addJudge(request);
     }
 
-    @PostMapping()
+    @PostMapping("/mentor")
     public AssignmentDto addMentor(@RequestBody AddMentorRequest request){
         return staffService.addMentor(request);
     }

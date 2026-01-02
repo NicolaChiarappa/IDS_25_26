@@ -36,7 +36,7 @@ public class EventServiceImpl implements EventService{
     public EventDto createEvent(CreateEventRequest request) {
         User user = userRepository.save(new User("Organizer", UserRole.ORGANIZER ));
         Event event = Event.fromOrganizer(user);
-        Event settedUpEvent = eventMapper.toDto(request, event);
+        Event settedUpEvent = eventMapper.toEvent(request, event);
         Event savedEvent = eventRepository.save(settedUpEvent);
         return eventMapper.toDto(savedEvent);
     }
@@ -58,5 +58,8 @@ public class EventServiceImpl implements EventService{
         Event savedEvent = eventRepository.save(event);
         return eventMapper.toDto(savedEvent);
     }
+
+
+
 
 }

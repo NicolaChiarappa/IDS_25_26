@@ -73,6 +73,12 @@ public class Event extends BaseEntity {
         this.setDeletedAt(LocalDateTime.now());
     }
 
+
+    //TODO:
+    /**
+     *
+     * @param status
+     */
     public void setStatus(EventStatus status){
         if(status==EventStatus.CLOSED && this.status!=EventStatus.EVALUATED){
             throw new IllegalStateException("Unable to set given status, current status is: " + this.getStatus());
