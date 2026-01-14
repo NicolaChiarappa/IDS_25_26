@@ -1,6 +1,5 @@
 .gradle
 build/
-**/*.vpp
 **/*.vpp.*
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
