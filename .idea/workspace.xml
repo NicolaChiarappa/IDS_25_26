@@ -5,9 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e2a5953-67ba-49ff-9cfc-72416bac9e93" name="Changes" comment="chore: update gitignore">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_12_25,_15_16_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vpp/ProgettoIDS_25_26.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/vpp/ProgettoIDS_25_26.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/infrastracture/web/controller/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/controller/StaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/infrastracture/web/controller/StaffController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/AssignmentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/AssignmentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/EventDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/EventDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/requests/AddJudgeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/AddJudgeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/requests/AddMentorRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/AddMentorRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/requests/CreateEventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/CreateEventRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/requests/EventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/EventRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/requests/UpdateEventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/UpdateEventRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/dto/requests/UpdateMentorRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/UpdateMentorRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/mappers/AssignmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/mapper/AssignmentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/mappers/EventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/mapper/EventMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/Assessment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Assessment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Assignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/DateRange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/DateRange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/EventStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/EventStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Staff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Team.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/model/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/repository/AssignmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/repository/AssignmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/repository/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/repository/EventRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/services/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/EventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/services/StaffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/StaffService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/services/StaffServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/StaffServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/services/UserContextProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/UserContextProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/EventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/EventTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,12 +76,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "NicolaChiarappa"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NicolaChiarappa&quot;
   }
-}]]></component>
+}</component>
   <component name="GitToolBoxStore">
     <option name="recentBranches">
       <RecentBranches>
@@ -88,33 +117,33 @@
     &quot;accountId&quot;: &quot;639aa8b3-fa0a-4a4f-b36b-afd0c7630c3e&quot;
   }
 }</component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="38FokgqS81jMJKcXhFZgrYB6Fon" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "doc",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="HackHub.main" />
@@ -141,6 +170,7 @@
       <option name="presentableId" value="Default" />
       <updated>1768404825258</updated>
       <workItem from="1768404827323" duration="16000" />
+      <workItem from="1768487813118" duration="633000" />
     </task>
     <servers />
   </component>
@@ -160,6 +190,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: update gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update gitignore" />
   </component>
 </project>
