@@ -29,11 +29,11 @@ public class Staff {
      * @param mentor the user to add as mentor
      * @return the new assignment
      */
-    public Assignment addMentor(User mentor){
+    public Assignment addMentor(StaffMember mentor){
         checkRole(mentor, UserRole.MENTOR);
         checkQuantity(UserRole.MENTOR);
 
-        Assignment assignment = new Assignment(mentor, event, null);
+        Assignment assignment = new Assignment(mentor.getId(), null, UserRole.MENTOR, event);
         assignments.add(assignment);
         return assignment;
     }
@@ -44,11 +44,11 @@ public class Staff {
      * @param judge the user to add as judge
      * @return the new assignment
      */
-    public Assignment addJudge(User judge){
+    public Assignment addJudge(StaffMember judge){
         checkRole(judge, UserRole.JUDGE);
         checkQuantity(UserRole.JUDGE);
 
-        Assignment assignment = new Assignment(judge, event, null);
+        Assignment assignment = new Assignment(judge.getId(),null, UserRole.JUDGE, null);
         assignments.add(assignment);
         return assignment;
     }
@@ -59,9 +59,9 @@ public class Staff {
      * @param team the team linked to the mentor
      * @return the new assignment
      */
-    public Assignment updateMentor(User mentor, Team team){
-        if(this.contains(mentor)){
-            Assignment assignment = new Assignment(mentor, event, team);
+    public Assignment updateMentor(StaffMember mentor, Team team){
+        if(this.contains(mentor.getId())){
+            Assignment assignment = new Assignment(mentor.getId(), team.getId(), UserRole.MENTOR, event);
             this.assignments.add(assignment);
             return assignment;
         }else {
@@ -69,14 +69,14 @@ public class Staff {
         }
     }
 
-    public boolean contains(User user){
-        return assignments.stream().anyMatch(assignment -> assignment.getUser().equals(user));
+    public boolean contains(Long userId){
+        return assignments.stream().anyMatch(assignment -> assignment.getUserId().equals(userId));
     }
 
 
     private void checkQuantity(UserRole role){
         Integer roleCount = (int) assignments.stream()
-                .filter(assignment -> assignment.getUser().getRole()==role)
+                .filter(assignment -> assignment.getRole()==role)
                 .count();
 
         if(roleCount.compareTo(maxQuantity.get(role))>=0){
@@ -85,7 +85,7 @@ public class Staff {
     }
 
 
-    private void checkRole(User user, UserRole role){
+    private void checkRole(StaffMember user, UserRole role){
         if(user.getRole()!=role){
             throw new IllegalArgumentException("The user has not the correct role on the platform, expected: " + role + " actual: " + user.getRole());
         }

@@ -23,9 +23,17 @@ public class DateRange {
    private LocalDate startDate;
    private LocalDate endDate;
 
-//TODO:
+
    public boolean overlap(DateRange range){
-      return true;
+      if (range == null || this.startDate == null || this.endDate == null ||
+              range.startDate == null || range.endDate == null) {
+         return false;
+      }
+
+      //l'inizio di A deve essere prima (o uguale) alla fine di B
+      // E l'inizio di B deve essere prima (o uguale) alla fine di A.
+      return !this.startDate.isAfter(range.getEndDate()) &&
+              !range.getStartDate().isAfter(this.endDate);
    }
 
 }

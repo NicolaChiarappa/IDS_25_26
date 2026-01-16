@@ -1,8 +1,6 @@
 import it.unicam.coloni.hackhub.context.event.domain.model.Assignment;
-import it.unicam.coloni.hackhub.context.event.domain.model.Staff;
-import it.unicam.coloni.hackhub.context.event.domain.model.User;
+import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
 import it.unicam.coloni.hackhub.context.event.domain.model.UserRole;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,11 +11,11 @@ public class EventTest {
 
     @Test
     public void shouldFailWhenAddMoreThanOneJudge(){
-        User giudice1 = new User();
+        StaffMember giudice1 = new StaffMember();
         giudice1.setFirstName("giudice1");
         giudice1.setRole(UserRole.JUDGE);
 
-        User giudice2 = new User();
+        StaffMember giudice2 = new StaffMember();
         giudice2.setFirstName("giudice2");
         giudice2.setRole(UserRole.JUDGE);
 

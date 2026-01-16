@@ -11,9 +11,8 @@ public interface StaffService {
 
     AssignmentDto addJudge(AddJudgeRequest request);
 
-
     AssignmentDto addMentor(AddMentorRequest request);
 
-    AssignmentDto updateMentor(UpdateMentorRequest request);
+    AssignmentDto assignMentorToTeam(UpdateMentorRequest request);
 
 }

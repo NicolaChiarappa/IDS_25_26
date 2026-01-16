@@ -16,14 +16,14 @@ import java.util.List;
 public class Event extends BaseEntity {
 
 
-    public static Event fromOrganizer(User organizer){
+    public static Event fromOrganizer(StaffMember organizer){
         if(organizer.getRole()!=UserRole.ORGANIZER){
             throw new IllegalArgumentException("The provided user is not an organizer");
         }
         Event event = new Event();
         List<Assignment> assignmentList = new ArrayList<>();
         event.staff = assignmentList;
-        Assignment organizerAssignment = new Assignment(organizer, event, null);
+        Assignment organizerAssignment = new Assignment(organizer.getId(), null, UserRole.ORGANIZER, event );
         assignmentList.add(organizerAssignment);
         return event;
     }
@@ -56,15 +56,21 @@ public class Event extends BaseEntity {
     }
 
 
-    public Assignment addMentor(User mentor){
-        return getEventStaff().addMentor(mentor);
+    public Assignment addMentor(StaffMember member, List<DateRange> busyPeriods){
+
+        if(busyPeriods.stream()
+                .anyMatch(period-> period.overlap(this.runningPeriod))) {
+            throw new IllegalStateException("The given user is not available in the period of the event");
+        }else {
+            return getEventStaff().addMentor(member);
+        }
     }
 
-    public Assignment addJudge(User judge){
+    public Assignment addJudge(StaffMember judge, List<DateRange> busyPeriods){
         return getEventStaff().addJudge(judge);
     }
 
-    public Assignment updateMentor(User mentor, Team team){
+    public Assignment updateMentor(StaffMember mentor, Team team){
         return getEventStaff().updateMentor(mentor, team);
     }
 
@@ -89,6 +95,13 @@ public class Event extends BaseEntity {
     private void checkIfDeletable(){
         if(this.getStatus()!=EventStatus.CLOSED){
             throw new IllegalStateException("Unable to delete this event, its current status is: " + this.getStatus());
+        }
+    }
+
+    private void checkAvailability(List<DateRange> busyPeriods ){
+        if(busyPeriods.stream()
+                .anyMatch(period-> period.overlap(this.runningPeriod))) {
+            throw new IllegalStateException("The given user is not available in the period of the event");
         }
     }
 

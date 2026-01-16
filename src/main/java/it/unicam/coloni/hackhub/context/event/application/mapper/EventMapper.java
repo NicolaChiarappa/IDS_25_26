@@ -1,9 +1,6 @@
 package it.unicam.coloni.hackhub.context.event.application.mapper;
 
-import it.unicam.coloni.hackhub.context.event.domain.model.DateRange;
-import it.unicam.coloni.hackhub.context.event.domain.model.Event;
-import it.unicam.coloni.hackhub.context.event.domain.model.EventStatus;
-import it.unicam.coloni.hackhub.context.event.domain.model.UserRole;
+import it.unicam.coloni.hackhub.context.event.domain.model.*;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.EventDto;
@@ -58,16 +55,16 @@ public abstract class EventMapper {
     void takeRoles(@MappingTarget EventDto eventDto, Event event) {
         eventDto.setOrganizerId(
                 event.getStaff().stream()
-                        .filter(assignment -> assignment.getUser().getRole()== UserRole.ORGANIZER)
-                        .map(assignment -> assignment.getUser().getId())
+                        .filter(assignment -> assignment.getRole()== UserRole.ORGANIZER)
+                        .map(BaseEntity::getId)
                         .findAny()
                         .orElse(null)
         );
 
         eventDto.setJudgeId(
                 event.getStaff().stream()
-                        .filter(assignment -> assignment.getUser().getRole()== UserRole.JUDGE)
-                        .map(assignment -> assignment.getUser().getId())
+                        .filter(assignment -> assignment.getRole()== UserRole.JUDGE)
+                        .map(Assignment::getUserId)
                         .findAny()
                         .orElse(null)
 
@@ -75,8 +72,8 @@ public abstract class EventMapper {
 
         eventDto.setMentorsIds(
                 event.getStaff().stream()
-                        .filter(assignment -> assignment.getUser().getRole()== UserRole.MENTOR)
-                        .map(assignment -> assignment.getUser().getId())
+                        .filter(assignment -> assignment.getRole()== UserRole.MENTOR)
+                        .map(Assignment::getUserId)
                         .toList()
         );
     }

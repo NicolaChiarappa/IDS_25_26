@@ -15,9 +15,8 @@ public abstract class AssignmentMapper {
 
 
 
-    @Mapping(target = "teamId", ignore = true)
+
     @Mapping(target = "eventId", expression = "java(assignment.getEvent().getId())")
-    @Mapping(target = "userId", expression = "java(assignment.getUser().getId())")
     public abstract AssignmentDto toDto(Assignment assignment);
 
 

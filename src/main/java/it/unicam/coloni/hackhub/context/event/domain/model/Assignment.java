@@ -15,13 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Assignment extends BaseEntity{
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "team_id")
+    private Long teamId;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Event event;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Team team;
 
 }
