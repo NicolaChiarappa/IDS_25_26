@@ -29,17 +29,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         this.responseFactory = factory;
     }
 
-
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @NotNull HttpHeaders headers, @NotNull HttpStatusCode status, @NotNull WebRequest request)
     {
+        HttpStatus internalStatus = HttpStatus.BAD_REQUEST;
         ApiResponse<List<String>> response = responseFactory.createErrorResponse(
-            Messages.Errors.VALIDATION_ERROR,
-            ex.getBindingResult().getFieldErrors().stream()
-                .map(FieldError::getField)
-                .toList()
+            ex, null, internalStatus
         );
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, internalStatus);
     }
 
 
@@ -48,25 +45,22 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleDatabase(DataIntegrityViolationException ex, HttpServletRequest request){
+    public ResponseEntity<Object> handleDatabase(DataIntegrityViolationException ex){
+        HttpStatus status = HttpStatus.CONFLICT;
         return new ResponseEntity<>( responseFactory.createErrorResponse(
-                ex.getLocalizedMessage(),
-                null
-        ), HttpStatus.BAD_REQUEST);
+                ex,
+                null,
+                status
+
+        ),status);
     }
 
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex){
-        System.out.println("Eccezione catturata: " + ex.getClass().getName());
         ex.printStackTrace();
-        return new ResponseEntity<>(
-                responseFactory.createErrorResponse(
-                        "Generic error",
-                        null
-                ),
-                HttpStatus.BAD_REQUEST
-        );
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        return new ResponseEntity<>( responseFactory.createErrorResponse(ex, null, status), status);
     }
 
 

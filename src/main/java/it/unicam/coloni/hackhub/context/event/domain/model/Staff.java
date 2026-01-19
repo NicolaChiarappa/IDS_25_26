@@ -48,7 +48,7 @@ public class Staff {
         checkRole(judge, UserRole.JUDGE);
         checkQuantity(UserRole.JUDGE);
 
-        Assignment assignment = new Assignment(judge.getId(),null, UserRole.JUDGE, null);
+        Assignment assignment = new Assignment(judge.getId(),null, UserRole.JUDGE, event);
         assignments.add(assignment);
         return assignment;
     }

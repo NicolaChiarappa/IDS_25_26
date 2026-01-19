@@ -4,6 +4,7 @@ import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEve
 import it.unicam.coloni.hackhub.context.event.application.dto.EventDto;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.mapper.EventMapper;
+import it.unicam.coloni.hackhub.context.event.application.strategies.EventCreationStrategy;
 import it.unicam.coloni.hackhub.context.event.domain.model.Event;
 import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
 import it.unicam.coloni.hackhub.context.event.domain.model.UserRole;
@@ -13,6 +14,8 @@ import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepositor
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -27,15 +30,20 @@ public class EventServiceImpl implements EventService{
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private List<EventCreationStrategy> strategies;
+
 
     @Override
     @Transactional
     public EventDto createEvent(CreateEventRequest request) {
         StaffMember organizer = new StaffMember(1L, "Organizer", UserRole.ORGANIZER);
-        Event event = Event.fromOrganizer(organizer);
-        Event settedUpEvent = eventMapper.toEvent(request, event);
-        Event savedEvent = eventRepository.save(settedUpEvent);
-        return eventMapper.toDto(savedEvent);
+        EventCreationStrategy strategy = strategies.stream()
+                .filter(s-> s.canHandle(request))
+                .findFirst()
+                .orElseThrow(()->new IllegalArgumentException("No strategy found"));
+        Event event = strategy.create(request, organizer);
+        return eventMapper.toDto(event);
     }
 
 
