@@ -3,9 +3,11 @@ package it.unicam.coloni.hackhub.context.event.application.strategies;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddJudgeRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddMentorRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEventRequest;
+import it.unicam.coloni.hackhub.context.event.application.dto.requests.EventCreationRequest;
 import it.unicam.coloni.hackhub.context.event.application.mapper.EventMapper;
 import it.unicam.coloni.hackhub.context.event.application.service.StaffService;
 import it.unicam.coloni.hackhub.context.event.domain.model.Event;
+import it.unicam.coloni.hackhub.context.event.domain.model.EventStatus;
 import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import jakarta.transaction.Transactional;
@@ -25,20 +27,24 @@ public class WithStaffStrategy implements EventCreationStrategy{
     EventMapper eventMapper;
 
     @Override
-    public boolean canHandle(CreateEventRequest request) {
-        return request.getJudgeId()!=null && request.getMentorsId()!=null && !request.getMentorsId().isEmpty();
+    public boolean canHandle(EventCreationRequest request) {
+        return request instanceof CreateEventRequest;
     }
 
     @Transactional
     @Override
-    public Event create(CreateEventRequest request, StaffMember organizer) {
+    public Event create(EventCreationRequest request, StaffMember organizer) {
+        CreateEventRequest castRequest = (CreateEventRequest) request;
+
         Event event = Event.fromOrganizer(organizer);
-        Event settedUpEvent = eventMapper.toEvent(request, event);
+        Event settedUpEvent = eventMapper.toEvent(castRequest, event);
+        settedUpEvent.openSubscription();
         Event savedEvent = eventRepository.save(settedUpEvent);
-        AddJudgeRequest judgeRequest = new AddJudgeRequest(savedEvent.getId(), request.getJudgeId());
+
+        AddJudgeRequest judgeRequest = new AddJudgeRequest(savedEvent.getId(), castRequest.getJudgeId());
         staffService.addJudge(judgeRequest);
 
-        for(Long id : request.getMentorsId()){
+        for(Long id : castRequest.getMentorsId()){
             AddMentorRequest mentorRequest = new AddMentorRequest(savedEvent.getId(),id);
             staffService.addMentor(mentorRequest);
         }

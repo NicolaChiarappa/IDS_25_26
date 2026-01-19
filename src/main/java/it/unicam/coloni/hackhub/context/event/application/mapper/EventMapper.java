@@ -19,7 +19,6 @@ public abstract class EventMapper {
     @Mapping(target = "modifiedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "status", ignore = true)
     @Mapping(target = "staff", ignore = true)
     @Mapping(target = "runningPeriod", ignore = true)
     @Mapping(target = "id", ignore = true)
@@ -89,7 +88,6 @@ public abstract class EventMapper {
         DateRange dateRange = DateRange.fromDates(request.getStartDate(), request.getEndDate());
         event.setRunningPeriod(dateRange);
         event.setCreatedAt(LocalDateTime.now());
-        event.setStatus(EventStatus.SUBSCRIPTION);
     }
 
 

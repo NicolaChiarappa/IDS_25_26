@@ -46,6 +46,7 @@ public class Event extends BaseEntity {
     private String rulesUrl;
 
     @Enumerated(EnumType.STRING)
+    @Setter(AccessLevel.PRIVATE)
     private EventStatus status;
 
 
@@ -80,17 +81,7 @@ public class Event extends BaseEntity {
     }
 
 
-    //TODO:
-    /**
-     *
-     * @param status
-     */
-    public void setStatus(EventStatus status){
-        if(status==EventStatus.CLOSED && this.status!=EventStatus.EVALUATED){
-            throw new IllegalStateException("Unable to set given status, current status is: " + this.getStatus());
-        }
-        this.status=status;
-    }
+
 
     private void checkIfDeletable(){
         if(this.getStatus()!=EventStatus.CLOSED){
@@ -104,5 +95,39 @@ public class Event extends BaseEntity {
             throw new IllegalStateException("The given user is not available in the period of the event");
         }
     }
+
+
+    public void openSubscription(){
+        this.status = EventStatus.SUBSCRIPTION;
+    }
+
+    public void closeSubscription(){
+        nextStatus(EventStatus.SUBSCRIPTION, EventStatus.WAITING);
+    }
+
+    public void startEvent(){
+        nextStatus(EventStatus.WAITING, EventStatus.RUNNING);
+    }
+
+    public void stopEvent(){
+        nextStatus(EventStatus.RUNNING, EventStatus.EVALUATING);
+    }
+
+    public void stopValuating(){
+        nextStatus(EventStatus.EVALUATING, EventStatus.EVALUATED);
+    }
+
+    public void closeEvent(){
+        nextStatus(EventStatus.EVALUATED, EventStatus.CLOSED);
+    }
+
+    private void nextStatus(EventStatus prev, EventStatus next){
+        if(this.status == prev){
+            setStatus(next);
+        }else{
+            throw new IllegalStateException("The status of the event cannot be modified");
+        }
+    }
+
 
 }

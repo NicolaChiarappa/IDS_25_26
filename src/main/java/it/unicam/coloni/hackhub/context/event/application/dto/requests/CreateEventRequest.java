@@ -7,7 +7,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CreateEventRequest extends EventRequest {
+public class CreateEventRequest extends EventCreationRequest {
 
     private Long judgeId;
     private List<Long> mentorsId;
