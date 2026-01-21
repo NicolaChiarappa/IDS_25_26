@@ -7,7 +7,7 @@ import it.unicam.coloni.hackhub.context.event.application.mapper.EventMapper;
 import it.unicam.coloni.hackhub.context.event.application.strategies.EventCreationStrategy;
 import it.unicam.coloni.hackhub.context.event.domain.model.Event;
 import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
-import it.unicam.coloni.hackhub.context.event.domain.model.UserRole;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 
@@ -37,7 +37,7 @@ public class EventServiceImpl implements EventService{
     @Override
     @Transactional
     public EventDto createEvent(EventCreationRequest request) {
-        StaffMember organizer = new StaffMember(1L, "Organizer", UserRole.ORGANIZER);
+        StaffMember organizer = new StaffMember(1L, "Organizer", PlatformRoles.ORGANIZER);
         EventCreationStrategy strategy = strategies.stream()
                 .filter(s-> s.canHandle(request))
                 .findFirst()

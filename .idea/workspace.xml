@@ -4,19 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e2a5953-67ba-49ff-9cfc-72416bac9e93" name="Changes" comment="feat(identity): implement account use cases based on spring security">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/strategies/EventCreationStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/strategies/OrganizerOnlyStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/strategies/WithStaffStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/AddJudgeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/AddJudgeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/AddMentorRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/AddMentorRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/CreateEventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/dto/requests/CreateEventRequest.java" afterDir="false" />
+    <list default="true" id="7e2a5953-67ba-49ff-9cfc-72416bac9e93" name="Changes" comment="fix(event): small fixes on strategy pattern">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/mapper/EventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/mapper/EventMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/EventServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/StaffServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/application/service/StaffServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Assignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/domain/models/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Staff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/ApiExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/ApiExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/ApiResponseFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/ApiResponseFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/StaffMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/StaffMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/Team.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/model/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/shared/infrastructure/web/domain/enums/PlatformRoles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/domain/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/infrastracture/web/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/infrastracture/web/controller/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/infrastracture/web/controller/StaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/event/infrastracture/web/controller/StaffController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/dtos/BaseUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/dtos/BaseUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/mappers/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/requests/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/dtos/requests/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/requests/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/dtos/requests/SignUpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/requests/UserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/dtos/requests/UserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/responses/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/dtos/responses/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/services/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/utilities/JWTHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/application/utilities/JWTHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/models/AccountRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/models/BaseAccount.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/models/Country.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/models/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/model/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/domain/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/security/CustomUserDetailsServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/security/CustomUserDetailsServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/security/SpringJWTHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/security/SpringJWTHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/web/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unicam/coloni/hackhub/context/identity/infrastructure/web/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/EventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/EventTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vpp/ProgettoIDS_25_26.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/vpp/ProgettoIDS_25_26.vpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +75,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -122,6 +145,7 @@
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Gradle.Build HackHub_25_26.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -176,6 +200,8 @@
       <updated>1768404825258</updated>
       <workItem from="1768404827323" duration="16000" />
       <workItem from="1768487813118" duration="29425000" />
+      <workItem from="1768830131598" duration="17749000" />
+      <workItem from="1769003731668" duration="3113000" />
     </task>
     <task id="LOCAL-00001" summary="refactor: create new context">
       <option name="closed" value="true" />
@@ -193,7 +219,23 @@
       <option name="project" value="LOCAL" />
       <updated>1768577230013</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat(event): implement strategy pattern for event creation service">
+      <option name="closed" value="true" />
+      <created>1768830285770</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1768830285770</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix(event): small fixes on strategy pattern">
+      <option name="closed" value="true" />
+      <created>1768838947411</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1768838947411</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,6 +256,8 @@
     <MESSAGE value="chore: update gitignore" />
     <MESSAGE value="refactor: create new context" />
     <MESSAGE value="feat(identity): implement account use cases based on spring security" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(identity): implement account use cases based on spring security" />
+    <MESSAGE value="feat(event): implement strategy pattern for event creation service" />
+    <MESSAGE value="fix(event): small fixes on strategy pattern" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(event): small fixes on strategy pattern" />
   </component>
 </project>

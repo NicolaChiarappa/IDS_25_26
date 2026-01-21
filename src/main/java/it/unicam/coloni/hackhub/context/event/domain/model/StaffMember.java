@@ -1,7 +1,7 @@
 package it.unicam.coloni.hackhub.context.event.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class StaffMember {
     private String username;
 
     @NonNull
-    private UserRole role;
+    private PlatformRoles role;
 
     @ToString.Exclude
     @JsonIgnore

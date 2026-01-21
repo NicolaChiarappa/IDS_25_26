@@ -1,6 +1,8 @@
 package it.unicam.coloni.hackhub.context.event.domain.model;
 
 
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.models.BaseEntity;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Assignment extends BaseEntity{
+public class Assignment extends BaseEntity {
 
     @Column(name = "user_id")
     private Long userId;
@@ -22,7 +24,7 @@ public class Assignment extends BaseEntity{
     private Long teamId;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private PlatformRoles role;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Event event;

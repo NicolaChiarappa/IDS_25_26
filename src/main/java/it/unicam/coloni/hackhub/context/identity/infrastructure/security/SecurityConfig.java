@@ -27,6 +27,14 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+
+
+    private final CustomUserDetailsServices userDetailsService;
+
+    public SecurityConfig(CustomUserDetailsServices userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -52,6 +60,8 @@ public class SecurityConfig {
     @Bean
     AuthenticationManager provider(){
         DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
+        dao.setUserDetailsService(userDetailsService);
+        dao.setPasswordEncoder(encoder());
 
         JWTProvider jwt = new JWTProvider();
 

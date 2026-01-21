@@ -6,6 +6,7 @@ import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddMentor
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateMentorRequest;
 import it.unicam.coloni.hackhub.context.event.application.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,11 +16,13 @@ public class StaffController {
     @Autowired
     StaffService staffService;
 
+    @PreAuthorize("hasAnyAuthority('ORGANIZER')")
     @PostMapping("/judge")
     public AssignmentDto addJudge(@RequestBody AddJudgeRequest request){
         return staffService.addJudge(request);
     }
 
+    @PreAuthorize("hasAnyAuthority('ORGANIZER')")
     @PostMapping("/mentor")
     public AssignmentDto addMentor(@RequestBody AddMentorRequest request){
         return staffService.addMentor(request);

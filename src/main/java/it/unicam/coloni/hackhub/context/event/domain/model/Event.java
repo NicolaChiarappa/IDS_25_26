@@ -1,6 +1,8 @@
 package it.unicam.coloni.hackhub.context.event.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.models.BaseEntity;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,13 +19,13 @@ public class Event extends BaseEntity {
 
 
     public static Event fromOrganizer(StaffMember organizer){
-        if(organizer.getRole()!=UserRole.ORGANIZER){
+        if(organizer.getRole()!= PlatformRoles.ORGANIZER){
             throw new IllegalArgumentException("The provided user is not an organizer");
         }
         Event event = new Event();
         List<Assignment> assignmentList = new ArrayList<>();
         event.staff = assignmentList;
-        Assignment organizerAssignment = new Assignment(organizer.getId(), null, UserRole.ORGANIZER, event );
+        Assignment organizerAssignment = new Assignment(organizer.getId(), null, PlatformRoles.ORGANIZER, event );
         assignmentList.add(organizerAssignment);
         return event;
     }

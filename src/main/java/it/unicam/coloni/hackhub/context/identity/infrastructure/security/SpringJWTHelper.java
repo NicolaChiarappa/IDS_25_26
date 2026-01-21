@@ -2,7 +2,8 @@ package it.unicam.coloni.hackhub.context.identity.infrastructure.security;
 
 import io.jsonwebtoken.Jwts;
 import it.unicam.coloni.hackhub.context.identity.application.utilities.JWTHelper;
-import it.unicam.coloni.hackhub.context.identity.domain.models.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
@@ -17,12 +18,13 @@ public class SpringJWTHelper implements JWTHelper {
 
 
     @Override
-    public String generate(User user, Integer duration) {
-        Long seconds = Instant.now().getEpochSecond()+86400*duration;
+    public String generate(Authentication user, Integer duration) {
+        UserDetails userPrincipal = (UserDetails) user.getPrincipal();
+        long seconds = Instant.now().getEpochSecond()+86400*duration;
         Date expDate =  Date.from(Instant.ofEpochSecond(seconds));
         System.out.println(expDate);
         return Jwts.builder()
-                .subject(user.getUsername())
+                .subject(userPrincipal.getUsername())
                 .expiration(expDate)
                 .signWith(key)
                 .compact();

@@ -1,6 +1,6 @@
 package it.unicam.coloni.hackhub.context.identity.application.dtos;
 
-import it.unicam.coloni.hackhub.context.identity.domain.models.Gender;
+import it.unicam.coloni.hackhub.context.identity.domain.model.Gender;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.NoArgsConstructor;

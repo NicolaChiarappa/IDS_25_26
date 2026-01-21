@@ -1,10 +1,10 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.web;
 
 import it.unicam.coloni.hackhub.context.identity.application.dtos.BaseUserDTO;
-import it.unicam.coloni.hackhub.context.identity.application.requests.LoginRequest;
-import it.unicam.coloni.hackhub.context.identity.application.requests.SignUpRequest;
-import it.unicam.coloni.hackhub.context.identity.application.responses.LoginResponse;
-import it.unicam.coloni.hackhub.context.identity.application.services.UserServiceImpl;
+import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.LoginRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.SignUpRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dtos.responses.LoginResponse;
+import it.unicam.coloni.hackhub.context.identity.application.services.AuthService;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponse;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import jakarta.validation.Valid;
@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 
-    private final UserServiceImpl userService;
+    private final AuthService userService;
     private final ApiResponseFactory factory;
 
 
     @Autowired
-    public UserController(UserServiceImpl service, ApiResponseFactory factory){
+    public UserController(AuthService service, ApiResponseFactory factory){
         this.userService = service;
         this.factory = factory;
 

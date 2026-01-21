@@ -1,15 +1,17 @@
 package it.unicam.coloni.hackhub.context.event.domain.model;
 
 
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
+
 import java.util.*;
 
 
 public class Staff {
 
-    private final static Map<UserRole, Integer> maxQuantity = Map.of(
-            UserRole.JUDGE,1,
-            UserRole.MENTOR, 100,
-            UserRole.ORGANIZER, 1
+    private final static Map<PlatformRoles, Integer> maxQuantity = Map.of(
+            PlatformRoles.JUDGE,1,
+            PlatformRoles.MENTOR, 100,
+            PlatformRoles.ORGANIZER, 1
     );
 
     protected Staff(List<Assignment> assignments) {
@@ -30,10 +32,10 @@ public class Staff {
      * @return the new assignment
      */
     public Assignment addMentor(StaffMember mentor){
-        checkRole(mentor, UserRole.MENTOR);
-        checkQuantity(UserRole.MENTOR);
+        checkRole(mentor, PlatformRoles.MENTOR);
+        checkQuantity(PlatformRoles.MENTOR);
 
-        Assignment assignment = new Assignment(mentor.getId(), null, UserRole.MENTOR, event);
+        Assignment assignment = new Assignment(mentor.getId(), null, PlatformRoles.MENTOR, event);
         assignments.add(assignment);
         return assignment;
     }
@@ -45,10 +47,10 @@ public class Staff {
      * @return the new assignment
      */
     public Assignment addJudge(StaffMember judge){
-        checkRole(judge, UserRole.JUDGE);
-        checkQuantity(UserRole.JUDGE);
+        checkRole(judge, PlatformRoles.JUDGE);
+        checkQuantity(PlatformRoles.JUDGE);
 
-        Assignment assignment = new Assignment(judge.getId(),null, UserRole.JUDGE, event);
+        Assignment assignment = new Assignment(judge.getId(),null, PlatformRoles.JUDGE, event);
         assignments.add(assignment);
         return assignment;
     }
@@ -61,7 +63,7 @@ public class Staff {
      */
     public Assignment updateMentor(StaffMember mentor, Team team){
         if(this.contains(mentor.getId())){
-            Assignment assignment = new Assignment(mentor.getId(), team.getId(), UserRole.MENTOR, event);
+            Assignment assignment = new Assignment(mentor.getId(), team.getId(), PlatformRoles.MENTOR, event);
             this.assignments.add(assignment);
             return assignment;
         }else {
@@ -74,7 +76,7 @@ public class Staff {
     }
 
 
-    private void checkQuantity(UserRole role){
+    private void checkQuantity(PlatformRoles role){
         Integer roleCount = (int) assignments.stream()
                 .filter(assignment -> assignment.getRole()==role)
                 .count();
@@ -85,7 +87,7 @@ public class Staff {
     }
 
 
-    private void checkRole(StaffMember user, UserRole role){
+    private void checkRole(StaffMember user, PlatformRoles role){
         if(user.getRole()!=role){
             throw new IllegalArgumentException("The user has not the correct role on the platform, expected: " + role + " actual: " + user.getRole());
         }

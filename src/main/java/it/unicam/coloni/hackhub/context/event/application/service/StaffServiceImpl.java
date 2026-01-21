@@ -9,8 +9,8 @@ import it.unicam.coloni.hackhub.context.event.application.mapper.AssignmentMappe
 import it.unicam.coloni.hackhub.context.event.domain.repository.AssignmentRepository;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
-import it.unicam.coloni.hackhub.context.identity.domain.models.User;
-import jakarta.persistence.Temporal;
+import it.unicam.coloni.hackhub.context.identity.domain.model.User;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,27 +37,31 @@ public class StaffServiceImpl implements StaffService{
     @Override
     @Transactional
     public AssignmentDto addJudge(AddJudgeRequest request) {
-        Assignment assignment;
-        User user = userRepository.findById(request.getUserId()).orElseThrow();
-        StaffMember judge = new StaffMember(user.getId(),user.getUsername(), user.getRole());
+        StaffMember judge = findMember(request.getUserId());
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
         List<DateRange> busyPeriods = assignmentRepository.findBusyPeriodByserId(judge.getId());
-        assignment = event.addJudge(judge, busyPeriods);
+        Assignment assignment = event.addJudge(judge, busyPeriods);
         eventRepository.save(event);
         return assignmentMapper.toDto(assignment);
     }
 
+
+
     @Override
     @Transactional
     public AssignmentDto addMentor(AddMentorRequest request) {
-        Assignment assignment;
-        User user = userRepository.findById(request.getUserId()).orElseThrow();
-        StaffMember mentor = new StaffMember(user.getId(),user.getUsername(), user.getRole());
+        StaffMember mentor = findMember(request.getUserId());
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
         List<DateRange> busyPeriods = assignmentRepository.findBusyPeriodByserId(mentor.getId());
-        assignment = event.addMentor(mentor, busyPeriods);
+        Assignment assignment = event.addMentor(mentor, busyPeriods);
         eventRepository.save(event);
         return assignmentMapper.toDto(assignment);
+    }
+
+
+    private StaffMember findMember(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        return new StaffMember(user.getId(), user.getUsername(), PlatformRoles.JUDGE);
     }
 
     @Override

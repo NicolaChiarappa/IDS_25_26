@@ -1,6 +1,6 @@
-package it.unicam.coloni.hackhub.context.identity.application.requests;
+package it.unicam.coloni.hackhub.context.identity.application.dtos.requests;
 
-import it.unicam.coloni.hackhub.context.identity.domain.models.Gender;
+import it.unicam.coloni.hackhub.context.identity.domain.model.Gender;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -8,12 +8,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public final class SignUpRequest extends UserRequest {
+public class SignUpRequest extends UserRequest {
 
     @NotBlank
     private String firstName;
@@ -35,5 +35,7 @@ public final class SignUpRequest extends UserRequest {
 
     @NotBlank
     private String role;
+
+    private LocalDate birthDate;
 
 }

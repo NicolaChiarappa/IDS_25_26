@@ -4,6 +4,7 @@ import it.unicam.coloni.hackhub.context.event.domain.model.*;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.EventDto;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
 import org.mapstruct.*;
 import java.time.LocalDateTime;
 
@@ -54,15 +55,15 @@ public abstract class EventMapper {
     void takeRoles(@MappingTarget EventDto eventDto, Event event) {
         eventDto.setOrganizerId(
                 event.getStaff().stream()
-                        .filter(assignment -> assignment.getRole()== UserRole.ORGANIZER)
-                        .map(BaseEntity::getId)
+                        .filter(assignment -> assignment.getRole()== PlatformRoles.ORGANIZER)
+                        .map(Assignment::getUserId)
                         .findAny()
                         .orElse(null)
         );
 
         eventDto.setJudgeId(
                 event.getStaff().stream()
-                        .filter(assignment -> assignment.getRole()== UserRole.JUDGE)
+                        .filter(assignment -> assignment.getRole()== PlatformRoles.JUDGE)
                         .map(Assignment::getUserId)
                         .findAny()
                         .orElse(null)
@@ -71,7 +72,7 @@ public abstract class EventMapper {
 
         eventDto.setMentorsIds(
                 event.getStaff().stream()
-                        .filter(assignment -> assignment.getRole()== UserRole.MENTOR)
+                        .filter(assignment -> assignment.getRole()== PlatformRoles.MENTOR)
                         .map(Assignment::getUserId)
                         .toList()
         );

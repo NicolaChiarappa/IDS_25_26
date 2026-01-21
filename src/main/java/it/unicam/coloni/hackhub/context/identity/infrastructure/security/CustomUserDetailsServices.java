@@ -1,6 +1,6 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.security;
 
-import it.unicam.coloni.hackhub.context.identity.domain.models.User;
+import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

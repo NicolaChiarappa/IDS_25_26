@@ -1,4 +1,4 @@
-package it.unicam.coloni.hackhub.context.identity.application.responses;
+package it.unicam.coloni.hackhub.context.identity.application.dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
