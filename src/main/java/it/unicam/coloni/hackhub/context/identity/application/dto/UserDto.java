@@ -1,6 +1,7 @@
-package it.unicam.coloni.hackhub.context.identity.application.dtos;
+package it.unicam.coloni.hackhub.context.identity.application.dto;
 
 import it.unicam.coloni.hackhub.context.identity.domain.model.Gender;
+import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class BaseUserDTO {
+public class UserDto {
 
     private Long id;
 
@@ -30,5 +31,5 @@ public class BaseUserDTO {
     @URL
     private String photoUrl;
 
-    private String role;
+    private PlatformRoles role;
 }

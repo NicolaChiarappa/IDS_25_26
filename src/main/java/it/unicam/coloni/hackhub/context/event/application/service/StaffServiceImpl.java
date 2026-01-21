@@ -10,7 +10,7 @@ import it.unicam.coloni.hackhub.context.event.domain.repository.AssignmentReposi
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
-import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
+import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

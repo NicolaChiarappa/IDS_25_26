@@ -1,6 +1,6 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.security;
 
-import it.unicam.coloni.hackhub.context.identity.application.utilities.PasswordHelper;
+import it.unicam.coloni.hackhub.context.identity.application.utility.PasswordHelper;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

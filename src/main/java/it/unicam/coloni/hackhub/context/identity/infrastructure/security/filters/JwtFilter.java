@@ -1,6 +1,6 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.security.filters;
 
-import it.unicam.coloni.hackhub.context.identity.application.utilities.JWTHelper;
+import it.unicam.coloni.hackhub.context.identity.application.utility.JWTHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.security;
 
 import io.jsonwebtoken.Jwts;
-import it.unicam.coloni.hackhub.context.identity.application.utilities.JWTHelper;
+import it.unicam.coloni.hackhub.context.identity.application.utility.JWTHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 

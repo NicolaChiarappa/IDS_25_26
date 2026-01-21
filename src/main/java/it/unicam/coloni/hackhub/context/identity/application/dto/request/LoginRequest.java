@@ -1,4 +1,4 @@
-package it.unicam.coloni.hackhub.context.identity.application.dtos.requests;
+package it.unicam.coloni.hackhub.context.identity.application.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

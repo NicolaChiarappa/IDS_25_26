@@ -1,12 +1,12 @@
-package it.unicam.coloni.hackhub.context.identity.application.services;
+package it.unicam.coloni.hackhub.context.identity.application.service;
 
-import it.unicam.coloni.hackhub.context.identity.application.dtos.BaseUserDTO;
-import it.unicam.coloni.hackhub.context.identity.application.mappers.UserMapper;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.LoginRequest;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.SignUpRequest;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.responses.LoginResponse;
-import it.unicam.coloni.hackhub.context.identity.application.utilities.JWTHelper;
-import it.unicam.coloni.hackhub.context.identity.application.utilities.PasswordHelper;
+import it.unicam.coloni.hackhub.context.identity.application.dto.UserDto;
+import it.unicam.coloni.hackhub.context.identity.application.mapper.UserMapper;
+import it.unicam.coloni.hackhub.context.identity.application.dto.request.LoginRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dto.request.SignUpRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dto.response.LoginResponse;
+import it.unicam.coloni.hackhub.context.identity.application.utility.JWTHelper;
+import it.unicam.coloni.hackhub.context.identity.application.utility.PasswordHelper;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public BaseUserDTO signUp(SignUpRequest request){
+    public UserDto signUp(SignUpRequest request){
        User user = userMapper.fromSignUp(request);
        User saved = userRepository.save(user);
        return userMapper.toDto(saved);

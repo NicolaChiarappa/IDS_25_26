@@ -7,7 +7,7 @@ import it.unicam.coloni.hackhub.context.event.application.mapper.EventMapper;
 import it.unicam.coloni.hackhub.context.event.application.strategies.EventCreationStrategy;
 import it.unicam.coloni.hackhub.context.event.domain.model.Event;
 import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
-import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
+import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 

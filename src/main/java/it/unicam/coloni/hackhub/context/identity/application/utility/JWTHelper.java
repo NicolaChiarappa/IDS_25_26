@@ -1,4 +1,4 @@
-package it.unicam.coloni.hackhub.context.identity.application.utilities;
+package it.unicam.coloni.hackhub.context.identity.application.utility;
 
 import org.springframework.security.core.Authentication;
 

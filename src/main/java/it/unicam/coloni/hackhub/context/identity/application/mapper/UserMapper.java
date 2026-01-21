@@ -1,9 +1,9 @@
-package it.unicam.coloni.hackhub.context.identity.application.mappers;
+package it.unicam.coloni.hackhub.context.identity.application.mapper;
 
-import it.unicam.coloni.hackhub.context.identity.application.dtos.BaseUserDTO;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.LoginRequest;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.SignUpRequest;
-import it.unicam.coloni.hackhub.context.identity.application.utilities.PasswordHelper;
+import it.unicam.coloni.hackhub.context.identity.application.dto.UserDto;
+import it.unicam.coloni.hackhub.context.identity.application.dto.request.LoginRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dto.request.SignUpRequest;
+import it.unicam.coloni.hackhub.context.identity.application.utility.PasswordHelper;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import jakarta.validation.constraints.NotNull;
 import org.mapstruct.Mapper;
@@ -22,7 +22,7 @@ public abstract class UserMapper {
 
 
 
-    public abstract BaseUserDTO toDto(User user);
+    public abstract UserDto toDto(User user);
 
 
     @Mapping(target = "createdAt", source = ".", qualifiedByName = "getCurrentTime")

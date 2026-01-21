@@ -1,4 +1,4 @@
-package it.unicam.coloni.hackhub.shared.infrastructure.web.domain.models;
+package it.unicam.coloni.hackhub.shared.domain.models;
 
 
 

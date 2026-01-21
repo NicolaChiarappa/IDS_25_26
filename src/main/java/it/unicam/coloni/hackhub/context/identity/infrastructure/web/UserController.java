@@ -1,10 +1,10 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.web;
 
-import it.unicam.coloni.hackhub.context.identity.application.dtos.BaseUserDTO;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.LoginRequest;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.requests.SignUpRequest;
-import it.unicam.coloni.hackhub.context.identity.application.dtos.responses.LoginResponse;
-import it.unicam.coloni.hackhub.context.identity.application.services.AuthService;
+import it.unicam.coloni.hackhub.context.identity.application.dto.UserDto;
+import it.unicam.coloni.hackhub.context.identity.application.dto.request.LoginRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dto.request.SignUpRequest;
+import it.unicam.coloni.hackhub.context.identity.application.dto.response.LoginResponse;
+import it.unicam.coloni.hackhub.context.identity.application.service.AuthService;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponse;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import jakarta.validation.Valid;
@@ -60,7 +60,7 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ApiResponse<BaseUserDTO> signUp(@RequestBody @Valid SignUpRequest dto){
+    public ApiResponse<UserDto> signUp(@RequestBody @Valid SignUpRequest dto){
         System.out.println("signup");
         return factory.createSuccessResponse(
                 Messages.Success.ACCOUNT_CREATED,

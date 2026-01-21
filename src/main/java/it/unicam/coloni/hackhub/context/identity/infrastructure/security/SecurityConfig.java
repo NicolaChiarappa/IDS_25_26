@@ -1,7 +1,7 @@
 package it.unicam.coloni.hackhub.context.identity.infrastructure.security;
 
 
-import it.unicam.coloni.hackhub.context.identity.application.utilities.JWTHelper;
+import it.unicam.coloni.hackhub.context.identity.application.utility.JWTHelper;
 import it.unicam.coloni.hackhub.context.identity.infrastructure.security.filters.JwtFilter;
 import it.unicam.coloni.hackhub.context.identity.infrastructure.security.providers.JWTProvider;
 import org.springframework.context.annotation.Bean;
@@ -29,9 +29,9 @@ public class SecurityConfig {
 
 
 
-    private final CustomUserDetailsServices userDetailsService;
+    private final DatabaseUserDetailsService userDetailsService;
 
-    public SecurityConfig(CustomUserDetailsServices userDetailsService) {
+    public SecurityConfig(DatabaseUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -84,9 +84,6 @@ public class SecurityConfig {
         return new SpringJWTHelper();
     }
 
-    @Bean JwtFilter jwtFilter(){
-        return new JwtFilter();
-    }
 
 
 

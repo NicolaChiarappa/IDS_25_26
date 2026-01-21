@@ -4,7 +4,7 @@ import it.unicam.coloni.hackhub.context.event.domain.model.*;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.EventDto;
-import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
+import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import org.mapstruct.*;
 import java.time.LocalDateTime;
 

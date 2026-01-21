@@ -1,7 +1,7 @@
 package it.unicam.coloni.hackhub.context.event.domain.model;
 
 
-import it.unicam.coloni.hackhub.shared.infrastructure.web.domain.enums.PlatformRoles;
+import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 
 import java.util.*;
 
