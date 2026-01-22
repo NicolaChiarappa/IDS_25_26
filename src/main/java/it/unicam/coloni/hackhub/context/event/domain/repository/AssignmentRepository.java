@@ -15,7 +15,7 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     @Query("SELECT e.runningPeriod FROM Assignment a JOIN a.event e WHERE e.status <> :status AND a.userId = :userId")
     List<DateRange> findPeriodsOnEventStatusIsNot(@Param("status") EventStatus status, @Param("userId") Long userId);
 
-    default List<DateRange> findBusyPeriodByserId(Long userId){
+    default List<DateRange> findBusyPeriodByUserId(Long userId){
         return findPeriodsOnEventStatusIsNot(EventStatus.CLOSED, userId);
     }
 }

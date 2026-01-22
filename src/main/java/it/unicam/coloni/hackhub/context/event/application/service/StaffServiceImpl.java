@@ -39,7 +39,7 @@ public class StaffServiceImpl implements StaffService{
     public AssignmentDto addJudge(AddJudgeRequest request) {
         StaffMember judge = findMember(request.getUserId());
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
-        List<DateRange> busyPeriods = assignmentRepository.findBusyPeriodByserId(judge.getId());
+        List<DateRange> busyPeriods = assignmentRepository.findBusyPeriodByUserId(judge.getId());
         Assignment assignment = event.addJudge(judge, busyPeriods);
         eventRepository.save(event);
         return assignmentMapper.toDto(assignment);
@@ -52,7 +52,7 @@ public class StaffServiceImpl implements StaffService{
     public AssignmentDto addMentor(AddMentorRequest request) {
         StaffMember mentor = findMember(request.getUserId());
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
-        List<DateRange> busyPeriods = assignmentRepository.findBusyPeriodByserId(mentor.getId());
+        List<DateRange> busyPeriods = assignmentRepository.findBusyPeriodByUserId(mentor.getId());
         Assignment assignment = event.addMentor(mentor, busyPeriods);
         eventRepository.save(event);
         return assignmentMapper.toDto(assignment);

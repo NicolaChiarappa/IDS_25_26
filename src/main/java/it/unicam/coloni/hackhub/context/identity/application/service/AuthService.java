@@ -5,11 +5,14 @@ import it.unicam.coloni.hackhub.context.identity.application.dto.request.LoginRe
 import it.unicam.coloni.hackhub.context.identity.application.dto.request.SignUpRequest;
 import it.unicam.coloni.hackhub.context.identity.application.dto.response.LoginResponse;
 
+
 public interface AuthService {
 
     LoginResponse logIn(LoginRequest request);
 
     UserDto signUp(SignUpRequest request);
+
+    Long getLoggedUser();
 
 
 

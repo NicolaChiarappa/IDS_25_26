@@ -25,8 +25,7 @@ public abstract class UserMapper {
     public abstract UserDto toDto(User user);
 
 
-    @Mapping(target = "createdAt", source = ".", qualifiedByName = "getCurrentTime")
-    @Mapping(target = "password", source = "password", qualifiedByName = "encodePassword")
+    @Mapping(target = "createdAt",  qualifiedByName = "getCurrentTime")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "firstName", source = "firstName")
     @Mapping(target = "lastName", source = "lastName")

@@ -9,11 +9,15 @@ import it.unicam.coloni.hackhub.context.identity.application.utility.JWTHelper;
 import it.unicam.coloni.hackhub.context.identity.application.utility.PasswordHelper;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -22,14 +26,19 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapper userMapper;
     private final JWTHelper jwtHelper;
     private final AuthenticationManager authenticationManager;
+    private final PasswordHelper passwordHelper;
+
+    private final List<UserRegistrationObserver> userRegistrationObservers;
 
 
     @Autowired
-    public AuthServiceImpl(UserRepository repo, UserMapper mapper, PasswordHelper passHandler, JWTHelper jHelper, AuthenticationManager authManager) {
+    public AuthServiceImpl(UserRepository repo, UserMapper mapper, PasswordHelper passHandler, JWTHelper jHelper, AuthenticationManager authManager, List<UserRegistrationObserver> observers) {
         userRepository = repo;
         userMapper = mapper;
         jwtHelper = jHelper;
         authenticationManager = authManager;
+        passwordHelper = passHandler;
+        userRegistrationObservers = observers;
     }
 
     @Override
@@ -51,9 +60,36 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDto signUp(SignUpRequest request){
        User user = userMapper.fromSignUp(request);
+       user.setPassword(passwordHelper.encode(request.getPassword()));
        User saved = userRepository.save(user);
+       notifyObservers(user);
        return userMapper.toDto(saved);
     }
+
+    @Override
+    public Long getLoggedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new SecurityException("No logged user");
+        }
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Logged user not found in database"));
+
+        return user.getId();
+    }
+
+    private void notifyObservers(User user){
+        for(UserRegistrationObserver observer: userRegistrationObservers){
+            try {
+                observer.onUserRegistered(user);
+            } catch (Exception e) {
+                System.err.println("Error while notifying observer: " + e.getMessage());
+            }
+        }
+    }
+
+
 
 
 
