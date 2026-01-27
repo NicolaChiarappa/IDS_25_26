@@ -12,4 +12,6 @@ public interface AssessmentService {
     List<AssessmentDto> getAssessmentsByEvent(Long eventId);
 
     List<AssessmentDto> getAssessmentsByTeam(Long teamId);
+
+
 }

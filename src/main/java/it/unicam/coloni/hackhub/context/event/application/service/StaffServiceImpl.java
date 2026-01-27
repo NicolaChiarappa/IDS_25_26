@@ -61,27 +61,17 @@ public class StaffServiceImpl implements StaffService{
 
     private StaffMember findMember(Long id) {
         User user = userRepository.findById(id).orElseThrow();
-        return new StaffMember(user.getId(), user.getUsername(), PlatformRoles.JUDGE);
+        return new StaffMember(user.getId(), user.getUsername(), user.getRole());
     }
 
     @Override
     public AssignmentDto assignMentorToTeam(UpdateMentorRequest request) {
-
         Assignment assignment;
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
-
-        //TODO: pronto quando avremo il repository dei team
-        //Team team = teamRepository.findById(request.getTeamId()).orElseThrow();
-
-//        User mentor = userRepository.findById(request.getUserId()).orElseThrow();
-//
-//        assignment = event.updateMentor(mentor, team);
-//        eventRepository.save(event);
-//
-//
-//        return assignmentMapper.toDto(assignment);
-
-        return null;
+        StaffMember mentor = findMember(request.getUserId());
+        assignment = event.updateMentor(mentor, request.getTeamId());
+        eventRepository.save(event);
+        return assignmentMapper.toDto(assignment);
 
     }
 }

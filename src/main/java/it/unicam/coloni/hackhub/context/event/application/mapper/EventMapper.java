@@ -1,19 +1,24 @@
 package it.unicam.coloni.hackhub.context.event.application.mapper;
 
+import it.unicam.coloni.hackhub.context.event.application.dto.requests.SimpleCreationRequest;
+import it.unicam.coloni.hackhub.context.event.application.dto.requests.WithStaffCreationRequest;
 import it.unicam.coloni.hackhub.context.event.domain.model.*;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateEventRequest;
-import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEventRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.EventDto;
-import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.LocalDateTime;
 
 
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        uses = {DateRange.class, EventMapper.class})
+        uses = {DateRange.class, EventMapper.class, AssignmentMapper.class})
 public abstract class EventMapper {
+
+    @Autowired
+    private AssignmentMapper assignmentMapper;
 
 
 
@@ -23,14 +28,21 @@ public abstract class EventMapper {
     @Mapping(target = "staff", ignore = true)
     @Mapping(target = "runningPeriod", ignore = true)
     @Mapping(target = "id", ignore = true)
-    public abstract Event toEvent(CreateEventRequest request, @MappingTarget Event event);
+    public abstract Event toEvent(SimpleCreationRequest request, @MappingTarget Event event);
+
+
+    @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "staff", ignore = true)
+    @Mapping(target = "runningPeriod", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    public abstract Event toEvent(WithStaffCreationRequest request, @MappingTarget Event event);
 
 
 
-    @Mapping(target = "organizerId", ignore = true)
-    @Mapping(target = "mentorsIds", ignore = true)
-    @Mapping(target = "judgeId", ignore = true)
     @Mapping(target = "eventId", source = "id")
+    @Mapping(target = "assignments", source = "staff")
     public abstract EventDto toDto(Event event);
 
 
@@ -51,41 +63,41 @@ public abstract class EventMapper {
      * @param eventDto the mapping target
      * @param event the mapping source
      */
-    @AfterMapping
-    void takeRoles(@MappingTarget EventDto eventDto, Event event) {
-        eventDto.setOrganizerId(
-                event.getStaff().stream()
-                        .filter(assignment -> assignment.getRole()== PlatformRoles.ORGANIZER)
-                        .map(Assignment::getUserId)
-                        .findAny()
-                        .orElse(null)
-        );
-
-        eventDto.setJudgeId(
-                event.getStaff().stream()
-                        .filter(assignment -> assignment.getRole()== PlatformRoles.JUDGE)
-                        .map(Assignment::getUserId)
-                        .findAny()
-                        .orElse(null)
-
-        );
-
-        eventDto.setMentorsIds(
-                event.getStaff().stream()
-                        .filter(assignment -> assignment.getRole()== PlatformRoles.MENTOR)
-                        .map(Assignment::getUserId)
-                        .toList()
-        );
-    }
+//    @AfterMapping
+//    void takeRoles(@MappingTarget EventDto eventDto, Event event) {
+//        eventDto.setOrganizerId(
+//                event.getStaff().stream()
+//                        .filter(assignment -> assignment.getRole()== PlatformRoles.ORGANIZER)
+//                        .map(Assignment::getUserId)
+//                        .findAny()
+//                        .orElse(null)
+//        );
+//
+//        eventDto.setJudgeId(
+//                event.getStaff().stream()
+//                        .filter(assignment -> assignment.getRole()== PlatformRoles.JUDGE)
+//                        .map(Assignment::getUserId)
+//                        .findAny()
+//                        .orElse(null)
+//
+//        );
+//
+//        eventDto.setMentorsIds(
+//                event.getStaff().stream()
+//                        .filter(assignment -> assignment.getRole()== PlatformRoles.MENTOR)
+//                        .map(Assignment::getUserId)
+//                        .toList()
+//        );
+//    }
 
 
     /**
-     * Sets the {@link Event}'s runningPeriod property from {@link CreateEventRequest}'s startDate and endDate
+     * Sets the {@link Event}'s runningPeriod property from {@link WithStaffCreationRequest}'s startDate and endDate
      * @param event the mapping target
      * @param request the mapping source
      */
     @AfterMapping
-    void setDateRange(@MappingTarget Event event, CreateEventRequest request) {
+    void setDateRange(@MappingTarget Event event, WithStaffCreationRequest request) {
         DateRange dateRange = DateRange.fromDates(request.getStartDate(), request.getEndDate());
         event.setRunningPeriod(dateRange);
         event.setCreatedAt(LocalDateTime.now());
@@ -96,6 +108,7 @@ public abstract class EventMapper {
     protected LocalDateTime getCurrentTime(UpdateEventRequest dto) {
         return LocalDateTime.now();
     }
+
 
 
 }

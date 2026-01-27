@@ -18,22 +18,16 @@ public class EventDto {
 
     private String rulesUrl;
 
-    private Long organizerId;
-
-    private Long judgeId;
 
     private EventStatus status;
 
-    private List<Long> mentorsIds;
-
-
     private LocalDateTime createdAt;
-
 
     private LocalDateTime deletedAt;
 
-
     private LocalDateTime modifiedAt;
+
+    private List<AssignmentDto> assignments;
 
 
 }

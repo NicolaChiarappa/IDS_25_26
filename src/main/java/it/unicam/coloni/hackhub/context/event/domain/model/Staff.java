@@ -58,12 +58,12 @@ public class Staff {
     /**
      * Assign a mentor to a specified {@link Team}
      * @param mentor the mentor to assign to the team
-     * @param team the team linked to the mentor
+     * @param teamId the team linked to the mentor
      * @return the new assignment
      */
-    public Assignment updateMentor(StaffMember mentor, Team team){
+    public Assignment updateMentor(StaffMember mentor, Long teamId){
         if(this.contains(mentor.getId())){
-            Assignment assignment = new Assignment(mentor.getId(), team.getId(), PlatformRoles.MENTOR, event);
+            Assignment assignment = new Assignment(mentor.getId(), teamId, PlatformRoles.MENTOR, event);
             this.assignments.add(assignment);
             return assignment;
         }else {

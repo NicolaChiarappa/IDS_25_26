@@ -28,7 +28,7 @@ public class StaffController {
         return staffService.addMentor(request);
     }
 
-    @PatchMapping
+    @PatchMapping("/mentor")
     public AssignmentDto updateMentor(@RequestBody UpdateMentorRequest request){
         return staffService.assignMentorToTeam(request);
     }

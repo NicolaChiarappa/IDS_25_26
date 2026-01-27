@@ -67,16 +67,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Long getLoggedUser(){
+    public User getLoggedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new SecurityException("No logged user");
         }
         String username = authentication.getName();
-        User user = userRepository.findByUsername(username)
+        return userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Logged user not found in database"));
 
-        return user.getId();
+
     }
 
     private void notifyObservers(User user){

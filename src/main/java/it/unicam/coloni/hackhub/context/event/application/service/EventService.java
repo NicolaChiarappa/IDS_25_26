@@ -10,11 +10,18 @@ public interface EventService {
 
     EventDto createEvent(EventCreationRequest request);
 
+    EventDto fetchById(Long id);
 
     EventDto deleteEvent(Long id);
 
     EventDto updateEvent(UpdateEventRequest request);
 
+    EventDto closeSubscriptions(Long id);
 
+    EventDto startEvent(Long id);
+
+    EventDto stopEvent(Long id);
+
+    EventDto closeEvent(Long id);
 
 }

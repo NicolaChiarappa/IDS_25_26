@@ -7,7 +7,6 @@ import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponse;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ public class AssessmentController {
     }
 
     @GetMapping("/event/{eventId}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyAuthority('JUDGE', 'MENTOR', 'ORGANIZER')")
     public ApiResponse<List<AssessmentDto>> getByEvent(@PathVariable Long eventId) {
         return responseFactory.createSuccessResponse(
                 "Assessments retrieved successfully",
@@ -41,7 +40,7 @@ public class AssessmentController {
     }
 
     @GetMapping("/team/{teamId}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyAuthority('STUDENT')")
     public ApiResponse<List<AssessmentDto>> getByTeam(@PathVariable Long teamId) {
         return responseFactory.createSuccessResponse(
                 "Assessments retrieved successfully",

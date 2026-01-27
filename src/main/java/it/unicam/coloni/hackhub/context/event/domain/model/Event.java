@@ -17,32 +17,29 @@ import java.util.List;
 @NoArgsConstructor
 public class Event extends BaseEntity {
 
-
-    public static Event fromOrganizer(StaffMember organizer){
-        if(organizer.getRole()!= PlatformRoles.ORGANIZER){
+    public static Event fromOrganizer(StaffMember organizer) {
+        if (organizer.getRole() != PlatformRoles.ORGANIZER) {
             throw new IllegalArgumentException("The provided user is not an organizer");
         }
         Event event = new Event();
         List<Assignment> assignmentList = new ArrayList<>();
         event.staff = assignmentList;
-        Assignment organizerAssignment = new Assignment(organizer.getId(), null, PlatformRoles.ORGANIZER, event );
+        Assignment organizerAssignment = new Assignment(organizer.getId(), null, PlatformRoles.ORGANIZER, event);
         assignmentList.add(organizerAssignment);
         return event;
     }
 
-
-
     @Column
     private String name;
 
-    @OneToMany(targetEntity= Assignment.class, mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Assignment.class, mappedBy = "event", cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
+    @Setter(AccessLevel.NONE)
     private List<Assignment> staff;
 
     @Embedded
     private DateRange runningPeriod;
-
 
     @Column
     private String rulesUrl;
@@ -51,85 +48,76 @@ public class Event extends BaseEntity {
     @Setter(AccessLevel.PRIVATE)
     private EventStatus status;
 
-
-
-
-    private Staff getEventStaff(){
+    private Staff getEventStaff() {
         return new Staff(getStaff());
     }
 
+    public Assignment addMentor(StaffMember member, List<DateRange> busyPeriods) {
 
-    public Assignment addMentor(StaffMember member, List<DateRange> busyPeriods){
-
-        if(busyPeriods.stream()
-                .anyMatch(period-> period.overlap(this.runningPeriod))) {
+        if (busyPeriods.stream()
+                .anyMatch(period -> period.overlap(this.runningPeriod))) {
             throw new IllegalStateException("The given user is not available in the period of the event");
-        }else {
+        } else {
             return getEventStaff().addMentor(member);
         }
     }
 
-    public Assignment addJudge(StaffMember judge, List<DateRange> busyPeriods){
+    public Assignment addJudge(StaffMember judge, List<DateRange> busyPeriods) {
         return getEventStaff().addJudge(judge);
     }
 
-    public Assignment updateMentor(StaffMember mentor, Team team){
-        return getEventStaff().updateMentor(mentor, team);
+    public Assignment updateMentor(StaffMember mentor, Long teamId) {
+        return getEventStaff().updateMentor(mentor, teamId);
     }
 
-    public void delete(){
+    public void delete() {
         this.checkIfDeletable();
         this.setDeletedAt(LocalDateTime.now());
     }
 
-
-
-
-    private void checkIfDeletable(){
-        if(this.getStatus()!=EventStatus.CLOSED){
+    private void checkIfDeletable() {
+        if (this.getStatus() != EventStatus.CLOSED) {
             throw new IllegalStateException("Unable to delete this event, its current status is: " + this.getStatus());
         }
     }
 
-    private void checkAvailability(List<DateRange> busyPeriods ){
-        if(busyPeriods.stream()
-                .anyMatch(period-> period.overlap(this.runningPeriod))) {
+    private void checkAvailability(List<DateRange> busyPeriods) {
+        if (busyPeriods.stream()
+                .anyMatch(period -> period.overlap(this.runningPeriod))) {
             throw new IllegalStateException("The given user is not available in the period of the event");
         }
     }
 
-
-    public void openSubscription(){
+    public void openSubscription() {
         this.status = EventStatus.SUBSCRIPTION;
     }
 
-    public void closeSubscription(){
+    public void closeSubscriptions() {
         nextStatus(EventStatus.SUBSCRIPTION, EventStatus.WAITING);
     }
 
-    public void startEvent(){
+    public void startEvent() {
         nextStatus(EventStatus.WAITING, EventStatus.RUNNING);
     }
 
-    public void stopEvent(){
+    public void stopEvent() {
         nextStatus(EventStatus.RUNNING, EventStatus.EVALUATING);
     }
 
-    public void stopValuating(){
+    public void stopValuating() {
         nextStatus(EventStatus.EVALUATING, EventStatus.EVALUATED);
     }
 
-    public void closeEvent(){
+    public void closeEvent() {
         nextStatus(EventStatus.EVALUATED, EventStatus.CLOSED);
     }
 
-    private void nextStatus(EventStatus prev, EventStatus next){
-        if(this.status == prev){
+    private void nextStatus(EventStatus prev, EventStatus next) {
+        if (this.status == prev) {
             setStatus(next);
-        }else{
+        } else {
             throw new IllegalStateException("The status of the event cannot be modified");
         }
     }
-
 
 }

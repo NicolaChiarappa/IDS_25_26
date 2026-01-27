@@ -32,10 +32,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
 
 
-    // Database (aggiungi uno, es: H2 in memoria)
+    // Database
     runtimeOnly("org.postgresql:postgresql:42.7.3")
     runtimeOnly("com.h2database:h2:2.2.224")
-    runtimeOnly("org.postgresql:postgresql:42.7.3")
 
     //mapstruct
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
@@ -58,5 +57,5 @@ tasks.test {
 }
 
 application{
-    mainClass.set("it.coloni.Main")
+    mainClass.set("it.unicam.coloni.hackhub.Main")
 }

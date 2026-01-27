@@ -2,12 +2,11 @@ package it.unicam.coloni.hackhub.context.event.application.strategies;
 
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddJudgeRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddMentorRequest;
-import it.unicam.coloni.hackhub.context.event.application.dto.requests.CreateEventRequest;
+import it.unicam.coloni.hackhub.context.event.application.dto.requests.WithStaffCreationRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.EventCreationRequest;
 import it.unicam.coloni.hackhub.context.event.application.mapper.EventMapper;
 import it.unicam.coloni.hackhub.context.event.application.service.StaffService;
 import it.unicam.coloni.hackhub.context.event.domain.model.Event;
-import it.unicam.coloni.hackhub.context.event.domain.model.EventStatus;
 import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import jakarta.transaction.Transactional;
@@ -28,13 +27,13 @@ public class WithStaffStrategy implements EventCreationStrategy{
 
     @Override
     public boolean canHandle(EventCreationRequest request) {
-        return request instanceof CreateEventRequest;
+        return request instanceof WithStaffCreationRequest;
     }
 
     @Transactional
     @Override
     public Event create(EventCreationRequest request, StaffMember organizer) {
-        CreateEventRequest castRequest = (CreateEventRequest) request;
+        WithStaffCreationRequest castRequest = (WithStaffCreationRequest) request;
 
         Event event = Event.fromOrganizer(organizer);
         Event settedUpEvent = eventMapper.toEvent(castRequest, event);

@@ -30,8 +30,8 @@ public class Assessment extends BaseEntity {
             name = "assessment_votes",
             joinColumns = @JoinColumn(name = "assessment_id")
     )
-    @MapKeyColumn(name = "criteria_name") // La chiave della mappa (es. "Pitch")
-    @Column(name = "score")               // Il valore (es. 8)
+    @MapKeyColumn(name = "criteria_name")
+    @Column(name = "score")
     private Map<String, Integer> votes = new HashMap<>();
 
 
