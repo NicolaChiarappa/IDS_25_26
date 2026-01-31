@@ -2,6 +2,7 @@ package it.unicam.coloni.hackhub.context.event.domain.repository;
 
 import it.unicam.coloni.hackhub.context.event.domain.model.Assignment;
 import it.unicam.coloni.hackhub.context.event.domain.model.DateRange;
+import it.unicam.coloni.hackhub.context.event.domain.model.Event;
 import it.unicam.coloni.hackhub.context.event.domain.model.EventStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,6 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     default List<DateRange> findBusyPeriodByUserId(Long userId){
         return findPeriodsOnEventStatusIsNot(EventStatus.CLOSED, userId);
     }
+
+    List<Assignment> findAllByEventAndUserId(Event event, Long userId);
 }
