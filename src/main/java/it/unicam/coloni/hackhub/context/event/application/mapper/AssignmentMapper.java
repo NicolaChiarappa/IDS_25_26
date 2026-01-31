@@ -13,9 +13,6 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 public abstract class AssignmentMapper {
 
-
-
-
     @Mapping(target = "eventId", expression = "java(assignment.getEvent().getId())")
     public abstract AssignmentDto toDto(Assignment assignment);
 
