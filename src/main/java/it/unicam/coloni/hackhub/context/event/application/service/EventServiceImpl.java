@@ -13,15 +13,19 @@ import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 
+import it.unicam.coloni.hackhub.context.assessment.application.dto.AssessmentDto;
+import it.unicam.coloni.hackhub.context.assessment.application.service.AssessmentService;
+import it.unicam.coloni.hackhub.context.event.application.dto.AssignmentDto;
+import it.unicam.coloni.hackhub.context.event.application.dto.EventDetailsDto;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
 
     @Autowired
     EventMapper eventMapper;
@@ -38,8 +42,11 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private AuthService authService;
 
-    private AssignmentMapper assignmentMapper;
+    @Autowired
+    private AssessmentService assessmentService;
 
+    @Autowired
+    private AssignmentMapper assignmentMapper;
 
     @Override
     @Transactional
@@ -49,9 +56,9 @@ public class EventServiceImpl implements EventService{
 
         StaffMember organizer = new StaffMember(user.getId(), user.getUsername(), user.getRole());
         EventCreationStrategy strategy = strategies.stream()
-                .filter(s-> s.canHandle(request))
+                .filter(s -> s.canHandle(request))
                 .findFirst()
-                .orElseThrow(()->new IllegalArgumentException("No strategy found"));
+                .orElseThrow(() -> new IllegalArgumentException("No strategy found"));
         Event event = strategy.create(request, organizer);
         return eventMapper.toDto(event);
     }
@@ -61,14 +68,12 @@ public class EventServiceImpl implements EventService{
         return eventMapper.toDto(eventRepository.findById(id).orElseThrow());
     }
 
-
     @Override
     public EventDto deleteEvent(Long id) {
         Event fetchedEvent = eventRepository.findById(id).orElseThrow(NullPointerException::new);
         fetchedEvent.delete();
         return eventMapper.toDto(eventRepository.save(fetchedEvent));
     }
-
 
     @Override
     public EventDto updateEvent(UpdateEventRequest request) {
@@ -107,7 +112,25 @@ public class EventServiceImpl implements EventService{
         return eventMapper.toDto(eventRepository.save(event));
     }
 
+    @Override
+    public EventDetailsDto getDetails(Long id) {
+        Event event = eventRepository.findById(id).orElseThrow();
+        EventDto eventDto = eventMapper.toDto(event);
 
+        List<AssignmentDto> staff = event.getStaff().stream()
+                .map(assignmentMapper::toDto)
+                .toList();
 
+        List<AssessmentDto> assessmentDtos = new ArrayList<>();
+        for (AssessmentDto assessment : assessmentService.getAssessmentsByEvent(id)) {
+            assessmentDtos.add(assessment);
+        }
+
+        return EventDetailsDto.builder()
+                .event(eventDto)
+                .staff(staff)
+                .assessments(assessmentDtos)
+                .build();
+    }
 
 }

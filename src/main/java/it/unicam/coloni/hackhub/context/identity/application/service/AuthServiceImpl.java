@@ -10,6 +10,7 @@ import it.unicam.coloni.hackhub.context.identity.application.utility.PasswordHel
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -58,6 +59,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
+    @Transactional
     public UserDto signUp(SignUpRequest request){
        User user = userMapper.fromSignUp(request);
        user.setPassword(passwordHelper.encode(request.getPassword()));

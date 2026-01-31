@@ -11,7 +11,6 @@ import it.unicam.coloni.hackhub.context.assessment.domain.model.Winner;
 import it.unicam.coloni.hackhub.context.assessment.domain.repository.WinnerRepository;
 import it.unicam.coloni.hackhub.context.identity.application.service.AuthService;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
-import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +26,8 @@ import java.util.stream.Collectors;
 public class WinnerServiceImpl implements WinnerService {
 
     private final WinnerRepository winnerRepository;
-    private final AssessmentRepository assessmentRepository; // Cross-context dependency
-    private final EventRepository eventRepository;           // Cross-context dependency
+    private final AssessmentRepository assessmentRepository;
+    private final EventRepository eventRepository;
     private final WinnerMapper winnerMapper;
     private final AuthService authService;
 
@@ -41,21 +40,18 @@ public class WinnerServiceImpl implements WinnerService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-        checkAuthority(event,logged);
+        checkAuthority(event, logged);
 
-        if(event.getStatus()!= EventStatus.EVALUATED){
+        if (event.getStatus() != EventStatus.EVALUATED) {
             throw new IllegalStateException("Event status is:" + event.getStatus());
         }
-
 
         List<Assessment> assessments = assessmentRepository.findByEventId(eventId);
         if (assessments.isEmpty()) {
             throw new IllegalStateException("No assessments found for this event. Cannot calculate winners.");
         }
 
-
         List<Winner> winners = calculateWinners(eventId, assessments);
-
 
         List<Winner> savedWinners = winnerRepository.saveAll(winners);
 
@@ -70,19 +66,15 @@ public class WinnerServiceImpl implements WinnerService {
         return winnerMapper.toDtoList(winnerRepository.findByEventIdOrderByRankPositionAsc(eventId));
     }
 
-
     private List<Winner> calculateWinners(Long eventId, List<Assessment> assessments) {
         Map<Long, Double> teamScores = assessments.stream()
                 .collect(Collectors.groupingBy(
                         Assessment::getTeamId,
-                        Collectors.averagingDouble(Assessment::getAverageScore)
-                ));
-
+                        Collectors.averagingDouble(Assessment::getAverageScore)));
 
         List<Map.Entry<Long, Double>> sortedTeams = teamScores.entrySet().stream()
-                .sorted(Map.Entry.<Long, Double>comparingByValue().reversed()) // Punteggio più alto prima
+                .sorted(Map.Entry.<Long, Double>comparingByValue().reversed())
                 .toList();
-
 
         List<Winner> winners = new ArrayList<>();
         int rank = 1;
@@ -97,9 +89,8 @@ public class WinnerServiceImpl implements WinnerService {
         return winners;
     }
 
-
-    private void checkAuthority(Event event, User organizer){
-        if(event.getStaff().stream().noneMatch(assignment -> assignment.getUserId().equals(organizer.getId()))) {
+    private void checkAuthority(Event event, User organizer) {
+        if (event.getStaff().stream().noneMatch(assignment -> assignment.getUserId().equals(organizer.getId()))) {
             throw new IllegalArgumentException("Current user is not working in this event");
         }
     }
