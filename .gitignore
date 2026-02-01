@@ -1,8 +1,11 @@
 .gradle
 build/
+**/*.vpp.*
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+vpp/restored
+
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -42,5 +45,4 @@ bin/
 .DS_Store
 
 
-*.vpp.lck
-*.vpp.bak*
+
