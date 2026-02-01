@@ -33,8 +33,6 @@ public class EventServiceImpl implements EventService {
     @Autowired
     EventRepository eventRepository;
 
-    @Autowired
-    UserRepository userRepository;
 
     @Autowired
     private List<EventCreationStrategy> strategies;
@@ -109,6 +107,13 @@ public class EventServiceImpl implements EventService {
     public EventDto closeEvent(Long id) {
         Event event = eventRepository.findById(id).orElseThrow();
         event.closeEvent();
+        return eventMapper.toDto(eventRepository.save(event));
+    }
+
+    @Override
+    public EventDto stopValuating(Long id) {
+        Event event = eventRepository.findById(id).orElseThrow();
+        event.stopValuating();
         return eventMapper.toDto(eventRepository.save(event));
     }
 

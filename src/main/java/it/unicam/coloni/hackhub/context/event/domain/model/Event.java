@@ -63,6 +63,11 @@ public class Event extends BaseEntity {
     }
 
     public Assignment addJudge(StaffMember judge, List<DateRange> busyPeriods) {
+        for(DateRange range : busyPeriods){
+            if(range.overlap(this.runningPeriod)){
+                throw new IllegalStateException("The given user is not available in the period of the event");
+            }
+        }
         return getEventStaff().addJudge(judge);
     }
 

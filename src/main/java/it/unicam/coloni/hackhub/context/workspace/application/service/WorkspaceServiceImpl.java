@@ -50,7 +50,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public ReportDto sendReport(ReportRequest request) {
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
         User logged = authService.getLoggedUser();
-        checkAuthority(event, logged );
+        checkAuthority(event, logged, request.getTeamId() );
 
         Report report = reportMapper.toEntity(request);
         report.setAuthorId(logged.getId());
@@ -64,7 +64,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
         User logged = authService.getLoggedUser();
-        checkAuthority(event, logged );
+        checkAuthority(event, logged, null );
 
         List<Assignment> teams = assignmentRepository.findAllByEventAndUserId(event, logged.getId());
 
@@ -86,7 +86,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
         User logged = authService.getLoggedUser();
-        checkAuthority(event, logged );
+        checkAuthority(event, logged, request.getTeamId() );
 
         Meeting meeting = meetingMapper.toEntity(request);
         meeting.setMentorId(authService.getLoggedUser().getId());
@@ -100,9 +100,16 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     }
 
 
-    private void checkAuthority(Event event, User organizer) {
-        if (event.getStaff().stream().noneMatch(assignment -> assignment.getUserId().equals(organizer.getId()))) {
+    private void checkAuthority(Event event, User logged, Long teamId) {
+        if (event.getStaff().stream().noneMatch(assignment -> assignment.getUserId().equals(logged.getId()))) {
             throw new IllegalArgumentException("Current user is not working in this event");
+        }
+        if (teamId!=null) {
+           if( event.getStaff().stream()
+                    .filter(assignment -> assignment.getTeamId()!=null)
+                    .noneMatch(assignment -> assignment.getTeamId().equals(teamId))){
+               throw new IllegalArgumentException("This mentor is not assigned to the specified team");
+           }
         }
     }
 }

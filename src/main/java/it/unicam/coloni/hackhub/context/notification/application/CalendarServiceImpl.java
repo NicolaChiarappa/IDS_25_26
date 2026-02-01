@@ -2,7 +2,9 @@ package it.unicam.coloni.hackhub.context.notification.application;
 
 import it.unicam.coloni.hackhub.context.workspace.application.service.MeetingObserver;
 import it.unicam.coloni.hackhub.context.workspace.domain.model.Meeting;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CalendarServiceImpl implements CalendarService, MeetingObserver {
     @Override
     public void doActionOnMeetingScheduled(Meeting meeting) {

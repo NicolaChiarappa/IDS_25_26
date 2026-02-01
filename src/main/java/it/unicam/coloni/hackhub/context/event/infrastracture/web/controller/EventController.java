@@ -77,6 +77,12 @@ public class EventController {
     }
 
     @PreAuthorize("hasAnyAuthority('ORGANIZER')")
+    @PatchMapping("/{id}/stopVals")
+    public ApiResponse<EventDto> stopValuating(@PathVariable Long id) {
+        return responseFactory.createSuccessResponse("Event valuations closed successfully", eventService.stopValuating(id));
+    }
+
+    @PreAuthorize("hasAnyAuthority('ORGANIZER')")
     @PatchMapping("/{id}/close")
     public ApiResponse<EventDto> closeEvent(@PathVariable Long id) {
         return responseFactory.createSuccessResponse("Event closed successfully", eventService.closeEvent(id));

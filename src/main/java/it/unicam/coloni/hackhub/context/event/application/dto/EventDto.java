@@ -5,7 +5,6 @@ import it.unicam.coloni.hackhub.context.event.domain.model.EventStatus;
 
 import lombok.Data;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class EventDto {
@@ -18,7 +17,6 @@ public class EventDto {
 
     private String rulesUrl;
 
-
     private EventStatus status;
 
     private LocalDateTime createdAt;
@@ -26,8 +24,5 @@ public class EventDto {
     private LocalDateTime deletedAt;
 
     private LocalDateTime modifiedAt;
-
-    private List<AssignmentDto> assignments;
-
 
 }

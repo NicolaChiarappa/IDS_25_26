@@ -25,6 +25,8 @@ public interface EventService {
 
     EventDto closeEvent(Long id);
 
+    EventDto stopValuating(Long id);
+
     EventDetailsDto getDetails(Long id);
 
 }
