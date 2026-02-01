@@ -8,11 +8,12 @@ vpp/restored
 
 
 ### IntelliJ IDEA ###
+.idea/
+.idea/*.xml
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
-.idea/
 *.iws
 *.iml
 *.ipr
