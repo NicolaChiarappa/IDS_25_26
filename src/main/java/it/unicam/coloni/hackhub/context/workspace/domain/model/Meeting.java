@@ -31,9 +31,7 @@ public class Meeting extends BaseEntity {
     @JsonIgnore
     private Workspace workspace;
 
-    public void linkToTicket(Long ticketId) {
-        this.ticketId = ticketId;
-    }
+
 
     public boolean isUpcoming() {
         return this.date != null && this.date.isAfter(LocalDateTime.now());

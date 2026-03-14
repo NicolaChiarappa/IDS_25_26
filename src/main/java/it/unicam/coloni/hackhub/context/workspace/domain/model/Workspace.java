@@ -83,17 +83,5 @@ public class Workspace extends BaseEntity {
         reports.add(report);
     }
 
-    public WorkloadSummary getWorkloadSummary() {
-        long openTickets = tickets.stream()
-                .filter(t -> t.getStatus() != TicketStatus.RESOLVED)
-                .count();
 
-        long scheduledMeetings = meetings.stream()
-                .filter(Meeting::isUpcoming)
-                .count();
-
-        long submittedReports = reports.size();
-
-        return new WorkloadSummary(openTickets, scheduledMeetings, submittedReports);
-    }
 }
