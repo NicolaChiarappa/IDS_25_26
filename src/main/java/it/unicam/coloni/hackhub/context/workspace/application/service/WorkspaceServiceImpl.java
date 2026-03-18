@@ -93,7 +93,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
         Meeting savedMeeting = meetingRepository.save(meeting);
         for(MeetingObserver o: meetingObservers){
-            o.doActionOnMeetingScheduled(savedMeeting);
+            o.onMeetingScheduled(savedMeeting);
         }
 
         return meetingMapper.toDto(savedMeeting);

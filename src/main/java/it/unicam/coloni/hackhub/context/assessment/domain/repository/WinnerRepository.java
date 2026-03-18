@@ -8,7 +8,9 @@ import java.util.List;
 
 @Repository
 public interface WinnerRepository extends JpaRepository<Winner, Long> {
-    List<Winner> findByEventIdOrderByRankPositionAsc(Long eventId);
+
+
+    Winner findByEventId(Long eventId);
 
 
 }

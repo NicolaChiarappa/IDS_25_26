@@ -4,6 +4,6 @@ import it.unicam.coloni.hackhub.context.workspace.domain.model.Meeting;
 
 public interface MeetingObserver {
 
-    void doActionOnMeetingScheduled(Meeting meeting);
+    void onMeetingScheduled(Meeting meeting);
 
 }

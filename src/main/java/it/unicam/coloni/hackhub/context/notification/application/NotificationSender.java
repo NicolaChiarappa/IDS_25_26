@@ -1,6 +1,6 @@
 package it.unicam.coloni.hackhub.context.notification.application;
 
-public interface NotificationSender {
+public interface NotificationSender<T> {
 
-    void send(String message);
+    void send(T data);
 }

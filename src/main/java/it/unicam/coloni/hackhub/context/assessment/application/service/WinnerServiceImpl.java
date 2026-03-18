@@ -11,6 +11,7 @@ import it.unicam.coloni.hackhub.context.assessment.domain.model.Winner;
 import it.unicam.coloni.hackhub.context.assessment.domain.repository.WinnerRepository;
 import it.unicam.coloni.hackhub.context.identity.application.service.AuthService;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
+import it.unicam.coloni.hackhub.context.team.domain.repository.TeamEventRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +31,11 @@ public class WinnerServiceImpl implements WinnerService {
     private final EventRepository eventRepository;
     private final WinnerMapper winnerMapper;
     private final AuthService authService;
+    private final TeamEventRepository teamEventRepository;
 
     @Override
     @Transactional
-    public List<WinnerDto> calculateAndDeclareWinners(Long eventId) {
+    public WinnerDto calculateAndDeclareWinner(Long eventId) {
 
         User logged = authService.getLoggedUser();
 
@@ -51,22 +53,27 @@ public class WinnerServiceImpl implements WinnerService {
             throw new IllegalStateException("No assessments found for this event. Cannot calculate winners.");
         }
 
-        List<Winner> winners = calculateWinners(eventId, assessments);
+        Winner winner = calculateWinner(eventId, assessments);
 
-        List<Winner> savedWinners = winnerRepository.saveAll(winners);
+        Winner savedWinner = winnerRepository.save(winner);
 
-        return winnerMapper.toDtoList(savedWinners);
+        return winnerMapper.toDto(savedWinner);
     }
 
     @Override
-    public List<WinnerDto> getWinners(Long eventId) {
+    public WinnerDto getWinner(Long eventId) {
         if (!eventRepository.existsById(eventId)) {
             throw new EntityNotFoundException("Event not found");
         }
-        return winnerMapper.toDtoList(winnerRepository.findByEventIdOrderByRankPositionAsc(eventId));
+        return winnerMapper.toDto(winnerRepository.findByEventId(eventId));
     }
 
-    private List<Winner> calculateWinners(Long eventId, List<Assessment> assessments) {
+    private Winner calculateWinner(Long eventId, List<Assessment> assessments) {
+
+        if(teamEventRepository.getAllByEventId(eventId).size()!=assessments.size()){
+            throw new IllegalStateException("The assessments table is not completed");
+        }
+
         Map<Long, Double> teamScores = assessments.stream()
                 .collect(Collectors.groupingBy(
                         Assessment::getTeamId,
@@ -86,7 +93,7 @@ public class WinnerServiceImpl implements WinnerService {
             winner.setRankPosition(rank++);
             winners.add(winner);
         }
-        return winners;
+        return winners.getFirst();
     }
 
     private void checkAuthority(Event event, User organizer) {

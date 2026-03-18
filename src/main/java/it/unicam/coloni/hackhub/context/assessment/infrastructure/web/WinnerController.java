@@ -5,7 +5,6 @@ import it.unicam.coloni.hackhub.context.assessment.application.service.WinnerSer
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponse;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,15 +20,15 @@ public class WinnerController {
 
     @PostMapping("/calculate/{eventId}")
     @PreAuthorize("hasAnyAuthority('ORGANIZER')")
-    public ApiResponse<List<WinnerDto>> calculateWinners(@PathVariable Long eventId) {
-        List<WinnerDto> winners = winnerService.calculateAndDeclareWinners(eventId);
-        return responseFactory.createSuccessResponse( "Winners calculated successfully", winners);
+    public ApiResponse<WinnerDto> calculateWinner(@PathVariable Long eventId) {
+        WinnerDto winner = winnerService.calculateAndDeclareWinner(eventId);
+        return responseFactory.createSuccessResponse( "Winners calculated successfully", winner);
     }
 
     @GetMapping("/{eventId}")
     @PreAuthorize("hasAnyAuthority('ORGANIZER')")
-    public ApiResponse<List<WinnerDto>> getWinners(@PathVariable Long eventId) {
-        List<WinnerDto> winners = winnerService.getWinners(eventId);
-        return responseFactory.createSuccessResponse("Winners retrieved successfully", winners );
+    public ApiResponse<WinnerDto> getWinner(@PathVariable Long eventId) {
+        WinnerDto winner = winnerService.getWinner(eventId);
+        return responseFactory.createSuccessResponse("Winner retrieved successfully", winner );
     }
 }

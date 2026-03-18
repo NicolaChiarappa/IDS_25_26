@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface WinnerService {
 
-    List<WinnerDto> calculateAndDeclareWinners(Long eventId);
+    WinnerDto calculateAndDeclareWinner(Long eventId);
 
-    List<WinnerDto> getWinners(Long eventId);
+    WinnerDto getWinner(Long eventId);
 }
