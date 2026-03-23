@@ -5,6 +5,9 @@ import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddJudgeR
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.AddMentorRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateMentorRequest;
 import it.unicam.coloni.hackhub.context.event.application.service.StaffService;
+import it.unicam.coloni.hackhub.context.identity.application.dto.UserDto;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponse;
+import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +19,34 @@ public class StaffController {
     @Autowired
     StaffService staffService;
 
+    @Autowired
+    ApiResponseFactory apiResponseFactory;
+
     @PreAuthorize("hasAnyAuthority('ORGANIZER')")
     @PostMapping("/judge")
-    public AssignmentDto addJudge(@RequestBody AddJudgeRequest request){
-        return staffService.addJudge(request);
+    public ApiResponse<AssignmentDto> addJudge(@RequestBody AddJudgeRequest request){
+        return apiResponseFactory.createSuccessResponse("Judge added successfully",staffService.addJudge(request));
     }
 
     @PreAuthorize("hasAnyAuthority('ORGANIZER')")
     @PostMapping("/mentor")
-    public AssignmentDto addMentor(@RequestBody AddMentorRequest request){
-        return staffService.addMentor(request);
+    public ApiResponse<AssignmentDto> addMentor(@RequestBody AddMentorRequest request){
+        return apiResponseFactory.createSuccessResponse("Judge added successfully",staffService.addMentor(request));
     }
 
     @PatchMapping("/mentor")
-    public AssignmentDto updateMentor(@RequestBody UpdateMentorRequest request){
-        return staffService.assignMentorToTeam(request);
+    public ApiResponse<AssignmentDto> updateMentor(@RequestBody UpdateMentorRequest request){
+        return apiResponseFactory.createSuccessResponse("Mentor assigned successfully",staffService.assignMentorToTeam(request));
     }
 
+    @GetMapping
+    public ApiResponse<UserDto> getAllJudges(){
+        return apiResponseFactory.createSuccessResponse("Judges found successfully",staffService.getAllJudges());
+    }
+
+    @GetMapping
+    public ApiResponse<UserDto> getAllMentors(){
+        return apiResponseFactory.createSuccessResponse("Mentors found successfully",staffService.getAllMentors());
+    }
 
 }

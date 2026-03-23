@@ -8,6 +8,8 @@ import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateMen
 import it.unicam.coloni.hackhub.context.event.application.mapper.AssignmentMapper;
 import it.unicam.coloni.hackhub.context.event.domain.repository.AssignmentRepository;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
+import it.unicam.coloni.hackhub.context.identity.application.dto.UserDto;
+import it.unicam.coloni.hackhub.context.identity.application.mapper.UserMapper;
 import it.unicam.coloni.hackhub.context.identity.domain.repository.UserRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
 import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
@@ -32,6 +34,9 @@ public class StaffServiceImpl implements StaffService{
 
     @Autowired
     AssignmentMapper assignmentMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
 
     @Override
@@ -73,5 +78,15 @@ public class StaffServiceImpl implements StaffService{
         eventRepository.save(event);
         return assignmentMapper.toDto(assignment);
 
+    }
+
+    @Override
+    public List<UserDto> getAllJudges() {
+        return userRepository.getAllByRole(PlatformRoles.JUDGE).stream().map(u->userMapper.toDto(u)).toList();
+    }
+
+    @Override
+    public List<UserDto> getAllMentors() {
+        return userRepository.getAllByRole(PlatformRoles.MENTOR).stream().map(u->userMapper.toDto(u)).toList();
     }
 }

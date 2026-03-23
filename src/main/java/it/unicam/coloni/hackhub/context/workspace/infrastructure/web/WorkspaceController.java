@@ -44,4 +44,10 @@ public class WorkspaceController {
         MeetingDto meeting = workspaceService.scheduleMeeting(request);
         return ResponseEntity.ok(responseFactory.createSuccessResponse("Meeting scheduled successfully", meeting));
     }
+
+    @GetMapping("/tickets/my")
+    public ResponseEntity<ApiResponse<List<TicketDto>>> getMyTickets(){
+        List<TicketDto> tickets = workspaceService.getMyT
+        return ResponseEntity.ok(responseFactory.createSuccessResponse("Tickets retrieved successfully", ))
+    }
 }

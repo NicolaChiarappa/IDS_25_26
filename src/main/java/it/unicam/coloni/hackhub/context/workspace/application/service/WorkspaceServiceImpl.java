@@ -66,7 +66,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         User logged = authService.getLoggedUser();
         checkAuthority(event, logged, null );
 
-        List<Assignment> teams = assignmentRepository.findAllByEventAndUserId(event, logged.getId());
+        List<Assignment> teams = assignmentRepository.findAllByEventAndUserId(event.getId(), logged.getId());
 
         List<Ticket> tickets= new ArrayList<>();
 
@@ -97,6 +97,12 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         }
 
         return meetingMapper.toDto(savedMeeting);
+    }
+
+    public List<TicketDto> getMyTickets(){
+        User user = authService.getLoggedUser();
+        List<Assignment> teams = assignmentRepository.findAllByEventAndUserId(event.getId(), logged.getId());
+
     }
 
 

@@ -14,4 +14,7 @@ public interface WorkspaceService {
     List<TicketDto> getAllTicketsByMentor(GetTicketsRequest request);
 
     MeetingDto scheduleMeeting(ScheduleMeetingRequest request);
+
+    List<TicketDto> getMyTickets();
+
 }

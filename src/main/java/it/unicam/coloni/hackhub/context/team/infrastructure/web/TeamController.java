@@ -8,11 +8,10 @@ import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponse;
 import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import it.unicam.coloni.hackhub.context.team.domain.model.Team;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/team")
@@ -23,6 +22,8 @@ public class TeamController {
 
     @Autowired
     ApiResponseFactory responseFactory;
+    @Autowired
+    private ApiResponseFactory apiResponseFactory;
 
     @PostMapping("")
     @PreAuthorize("hasAnyAuthority('STUDENT')")
@@ -36,6 +37,13 @@ public class TeamController {
     public ApiResponse<TeamEventAssignment> subscribeToEvent(@RequestBody SubscribeTeamRequest request) {
         return responseFactory.createSuccessResponse("Team subscribed successfully", teamService.subscribeTeamToEvent(request.getEventId(), request.getTeamId()));
     }
+
+    @GetMapping("/")
+    public List<Team> getTeamsByHackathon(Long id){
+        return apiResponseFactory.createSuccessResponse("Teams found successfully", teamService.getByHackathon(id));
+    }
+
+
 
 
 

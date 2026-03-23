@@ -6,8 +6,10 @@ import it.unicam.coloni.hackhub.context.event.application.dto.requests.UpdateEve
 import it.unicam.coloni.hackhub.context.event.application.mapper.AssignmentMapper;
 import it.unicam.coloni.hackhub.context.event.application.mapper.EventMapper;
 import it.unicam.coloni.hackhub.context.event.application.strategies.EventCreationStrategy;
+import it.unicam.coloni.hackhub.context.event.domain.model.Assignment;
 import it.unicam.coloni.hackhub.context.event.domain.model.Event;
 import it.unicam.coloni.hackhub.context.event.domain.model.StaffMember;
+import it.unicam.coloni.hackhub.context.event.domain.repository.AssignmentRepository;
 import it.unicam.coloni.hackhub.context.identity.application.service.AuthService;
 import it.unicam.coloni.hackhub.context.event.domain.repository.EventRepository;
 import it.unicam.coloni.hackhub.context.identity.domain.model.User;
@@ -45,6 +47,8 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private AssignmentMapper assignmentMapper;
+    @Autowired
+    private AssignmentRepository assignmentRepository;
 
     @Override
     @Transactional
@@ -136,6 +140,25 @@ public class EventServiceImpl implements EventService {
                 .staff(staff)
                 .assessments(assessmentDtos)
                 .build();
+    }
+
+    @Override
+    public List<EventDto> getAll() {
+        return eventRepository.findAll().stream().map(e->eventMapper.toDto(e)).toList();
+    }
+
+    @Override
+    public List<AssignmentDto> getMyAssignments(Long id) {
+        User user = authService.getLoggedUser();
+        return assignmentRepository.findAllByEventAndUserId(id, user.getId()).stream().map(a->assignmentMapper.toDto(a)).toList();
+    }
+
+    @Override
+    public List<EventDto> getMyHackathons() {
+        User user = authService.getLoggedUser();
+        return assignmentRepository.getAllByUserId(user.getId()).stream()
+                .map(Assignment::getEvent).toList().stream()
+                .map(e->eventMapper.toDto(e)).toList();
     }
 
 }

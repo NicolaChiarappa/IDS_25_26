@@ -1,6 +1,7 @@
 
 package it.unicam.coloni.hackhub.context.event.infrastracture.web.controller;
 
+import it.unicam.coloni.hackhub.context.event.application.dto.AssignmentDto;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.SimpleCreationRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.requests.WithStaffCreationRequest;
 import it.unicam.coloni.hackhub.context.event.application.dto.EventDto;
@@ -12,6 +13,8 @@ import it.unicam.coloni.hackhub.shared.infrastructure.web.ApiResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/event")
@@ -86,5 +89,21 @@ public class EventController {
     @PatchMapping("/{id}/close")
     public ApiResponse<EventDto> closeEvent(@PathVariable Long id) {
         return responseFactory.createSuccessResponse("Event closed successfully", eventService.closeEvent(id));
+    }
+
+    @PreAuthorize("hasAnyAuthority('ORGANIZER', 'MENTOR', 'JUDGE', 'STUDENT')")
+    @GetMapping("/all")
+    public ApiResponse<List<EventDto>> getAllEvents() {
+        return responseFactory.createSuccessResponse("Event closed successfully", eventService.getAll());
+    }
+
+    @GetMapping("/myassignments/{id}")
+    public ApiResponse<List<AssignmentDto>> getMyAssignmentsByHackathon(@PathVariable Long id){
+        return responseFactory.createSuccessResponse("Assignments found successfully", eventService.getMyAssignments(id));
+    }
+
+    @GetMapping("/my")
+    public ApiResponse<List<EventDto>> getMyHackathons(){
+        return responseFactory.createSuccessResponse("", eventService.getMyHackathons());
     }
 }

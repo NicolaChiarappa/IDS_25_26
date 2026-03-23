@@ -12,6 +12,8 @@ import it.unicam.coloni.hackhub.shared.domain.enums.PlatformRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeamService {
 
@@ -53,12 +55,17 @@ public class TeamService {
 
     public TeamEventAssignment subscribeTeamToEvent(Long eventId, Long teamId){
         User user = authService.getLoggedUser();
-        if(user.getRole()== PlatformRoles.STUDENT) {
+        if(studentTeamAssignmentRepository.findAllByUserId(user.getId()).stream().anyMatch(ass->ass.getTeamId().equals(teamId))) {
             TeamEventAssignment newAssignment = new TeamEventAssignment(eventId, teamId);
             return eventAssignmentRepository.save(newAssignment);
         }else {
-            throw new RuntimeException("You are not a student");
+            throw new RuntimeException("You are not assigned to this team");
         }
+    }
+
+    public List<Team> getByHackathon(Long id){
+        List<Long> assignments = eventAssignmentRepository.getAllByEventId(id).stream().map(TeamEventAssignment::getTeamId).toList();
+        return teamRepository.findAllById(assignments);
     }
 
 
