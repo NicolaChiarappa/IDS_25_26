@@ -47,7 +47,7 @@ public class WorkspaceController {
 
     @GetMapping("/tickets/my")
     public ResponseEntity<ApiResponse<List<TicketDto>>> getMyTickets(){
-        List<TicketDto> tickets = workspaceService.getMyT
-        return ResponseEntity.ok(responseFactory.createSuccessResponse("Tickets retrieved successfully", ))
+        List<TicketDto> tickets = workspaceService.getMyTickets();
+        return ResponseEntity.ok(responseFactory.createSuccessResponse("Tickets retrieved successfully", tickets ));
     }
 }

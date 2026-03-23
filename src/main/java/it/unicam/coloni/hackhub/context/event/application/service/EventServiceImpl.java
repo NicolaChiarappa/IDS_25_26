@@ -150,7 +150,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<AssignmentDto> getMyAssignments(Long id) {
         User user = authService.getLoggedUser();
-        return assignmentRepository.findAllByEventAndUserId(id, user.getId()).stream().map(a->assignmentMapper.toDto(a)).toList();
+        Event event = eventRepository.getReferenceById(id);
+        return assignmentRepository.findAllByEventAndUserId(event, user.getId()).stream().map(a->assignmentMapper.toDto(a)).toList();
     }
 
     @Override

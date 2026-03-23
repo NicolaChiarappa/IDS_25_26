@@ -20,7 +20,7 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
         return findPeriodsOnEventStatusIsNot(EventStatus.CLOSED, userId);
     }
 
-    List<Assignment> findAllByEventAndUserId(Long eventId, Long userId);
+    List<Assignment> findAllByEventAndUserId(Event event, Long userId);
 
     List<Assignment> getAllByUserId(Long id);
 }

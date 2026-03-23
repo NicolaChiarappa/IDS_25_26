@@ -39,7 +39,7 @@ public class TeamController {
     }
 
     @GetMapping("/")
-    public List<Team> getTeamsByHackathon(Long id){
+    public ApiResponse<List<Team>> getTeamsByHackathon(Long id){
         return apiResponseFactory.createSuccessResponse("Teams found successfully", teamService.getByHackathon(id));
     }
 

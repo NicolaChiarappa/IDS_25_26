@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/staff")
 public class StaffController {
@@ -39,13 +41,13 @@ public class StaffController {
         return apiResponseFactory.createSuccessResponse("Mentor assigned successfully",staffService.assignMentorToTeam(request));
     }
 
-    @GetMapping
-    public ApiResponse<UserDto> getAllJudges(){
+    @GetMapping("judges/all")
+    public ApiResponse<List<UserDto>> getAllJudges(){
         return apiResponseFactory.createSuccessResponse("Judges found successfully",staffService.getAllJudges());
     }
 
-    @GetMapping
-    public ApiResponse<UserDto> getAllMentors(){
+    @GetMapping("mentors/all")
+    public ApiResponse<List<UserDto>> getAllMentors(){
         return apiResponseFactory.createSuccessResponse("Mentors found successfully",staffService.getAllMentors());
     }
 
